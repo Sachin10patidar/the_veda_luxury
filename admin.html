@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Portal | The Veda Luxury Store Management</title>
+  <meta name="robots" content="noindex, nofollow">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/logo.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="admin-body">
+
+  <!-- ========================================================================
+       Admin Login Section (Shown if unauthenticated)
+       ======================================================================== -->
+  <div class="admin-login-wrap" id="adminLoginSection">
+    <div class="admin-login-card">
+      <img src="assets/logo.png" alt="The Veda Luxury" class="brand-logo-img" style="width: 72px; height: 72px; margin: 0 auto 1.2rem;">
+      <h2 style="font-size: 2rem; margin-bottom: 0.3rem;">The Veda Luxury</h2>
+      <p style="color: var(--color-text-muted); font-size: 0.9rem; margin-bottom: 2rem;">
+        Store & Product Administration Portal
+      </p>
+
+      <form id="adminLoginForm">
+        <div class="form-group" style="text-align: left;">
+          <label for="adminPinInput" class="form-label">Enter Admin Passcode</label>
+          <input type="password" id="adminPinInput" class="form-control" placeholder="Enter your passcode" required autocomplete="current-password">
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
+          Unlock Admin Portal
+        </button>
+
+        <div style="margin-top: 1.5rem;">
+          <a href="index.html" style="font-size: 0.88rem; color: var(--color-gold); font-weight: 500;">
+            ← Return to Storefront
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       Admin Dashboard Section (Shown when authenticated)
+       ======================================================================== -->
+  <div id="adminDashboardSection" style="display: none;">
+    <!-- Admin Header -->
+    <header class="admin-header">
+      <div class="container admin-header-inner">
+        <div class="brand-identity">
+          <img src="assets/logo.png" alt="Logo" class="brand-logo-img" style="width: 48px; height: 48px;">
+          <div>
+            <h1 style="font-size: 1.4rem; color: var(--color-primary); line-height: 1.1;">The Veda Luxury</h1>
+            <span style="font-size: 0.75rem; color: var(--color-rose-gold); text-transform: uppercase; font-weight: 600;">Admin Management Portal</span>
+          </div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <a href="index.html" class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.5rem 1rem;">
+            ← Open Storefront
+          </a>
+          <button type="button" class="btn btn-outline" id="adminLogoutBtn" style="font-size: 0.85rem; padding: 0.5rem 1rem;">
+            Log Out 🔒
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container" style="padding-top: 1rem; padding-bottom: 4rem;">
+      <!-- Quick Stats Metrics -->
+      <section class="admin-stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">🛍️</div>
+          <div>
+            <div class="stat-val" id="statTotalProducts">0</div>
+            <div class="stat-label">Active Products</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">📦</div>
+          <div>
+            <div class="stat-val" id="statTotalStock">0</div>
+            <div class="stat-label">Units in Inventory</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">💎</div>
+          <div>
+            <div class="stat-val" id="statCatalogValue">₹0</div>
+            <div class="stat-label">Total Catalog Value</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">💬</div>
+          <div>
+            <div class="stat-val" id="statWhatsappPhone" style="font-size: 1.15rem; font-family: var(--font-sans);">+91...</div>
+            <div class="stat-label">Orders WhatsApp Target</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Grid Layout: Add/Edit Form & Store Settings -->
+      <div class="admin-grid-layout">
+        <!-- Add / Edit Product Form -->
+        <div class="admin-card" id="productFormCard">
+          <div class="admin-card-header">
+            <h3 id="formSectionTitle" style="font-size: 1.4rem;">Upload & Add New Product</h3>
+            <button type="button" class="btn btn-outline" id="cancelEditBtn" style="display: none; font-size: 0.8rem; padding: 0.3rem 0.8rem;">
+              Cancel Edit
+            </button>
+          </div>
+
+          <form id="productForm">
+            <div class="form-group">
+              <label for="prodName" class="form-label">Product Name *</label>
+              <input type="text" id="prodName" class="form-control" placeholder="e.g. Handmade Terracotta Diya Set" required>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div class="form-group">
+                <label for="prodCategory" class="form-label">Category *</label>
+                <select id="prodCategory" class="form-control" required>
+                  <option value="rakhi">🧵 Rakhi Collection</option>
+                  <option value="hampers">🎁 Hamper Collection</option>
+                  <option value="diwali">🪔 Diwali Special</option>
+                  <option value="ganesh">🌱 Ganesh Sthapna</option>
+                  <option value="custom">✨ Custom Gifting</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="prodOccasion" class="form-label">Occasion / Festival</label>
+                <input type="text" id="prodOccasion" class="form-control" placeholder="e.g. Raksha Bandhan, Diwali">
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.8rem;">
+              <div class="form-group">
+                <label for="prodPrice" class="form-label">Selling Price (₹) *</label>
+                <input type="number" id="prodPrice" class="form-control" placeholder="e.g. 150" min="1" required>
+              </div>
+
+              <div class="form-group">
+                <label for="prodOriginalPrice" class="form-label">MRP (₹)</label>
+                <input type="number" id="prodOriginalPrice" class="form-control" placeholder="e.g. 200" min="1">
+              </div>
+
+              <div class="form-group">
+                <label for="prodQuantity" class="form-label">Stock Quantity *</label>
+                <input type="number" id="prodQuantity" class="form-control" placeholder="e.g. 50" min="0" required>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div class="form-group">
+                <label for="prodTag" class="form-label">Tag / Sub-Label</label>
+                <input type="text" id="prodTag" class="form-control" placeholder="e.g. Handmade, Pack of 12">
+              </div>
+
+              <div class="form-group">
+                <label for="prodBadge" class="form-label">Badge Pill</label>
+                <input type="text" id="prodBadge" class="form-control" placeholder="e.g. Bestseller, New, 20% OFF">
+              </div>
+            </div>
+
+            <div class="form-group" style="display: flex; align-items: center; gap: 0.6rem; padding: 0.6rem 0;">
+              <input type="checkbox" id="prodEcoFriendly" checked style="width: 18px; height: 18px; accent-color: var(--color-eco-green);">
+              <label for="prodEcoFriendly" style="font-size: 0.9rem; font-weight: 600; cursor: pointer;">
+                🌱 Mark as 100% Eco-Friendly & Natural
+              </label>
+            </div>
+
+            <!-- Image Upload Options -->
+            <div class="form-group" style="background: var(--bg-cream); padding: 1.2rem; border-radius: var(--radius-sm); border: var(--border-delicate);">
+              <label class="form-label" style="font-weight: 700; color: var(--color-primary);">Product Image</label>
+              
+              <div style="margin-bottom: 0.8rem;">
+                <label for="prodImageFile" style="font-size: 0.85rem; display: block; margin-bottom: 0.3rem;">
+                  📁 Upload from Device (Photo / Camera):
+                </label>
+                <input type="file" id="prodImageFile" accept="image/*" class="form-control" style="padding: 0.4rem;">
+              </div>
+
+              <div>
+                <label for="prodImageUrl" style="font-size: 0.85rem; display: block; margin-bottom: 0.3rem;">
+                  🔗 Or specify Image Path / Web URL:
+                </label>
+                <input type="text" id="prodImageUrl" class="form-control" placeholder="e.g. assets/luxury-hamper.jpg or https://...">
+              </div>
+
+              <img id="productImagePreview" src="" alt="Live Preview" class="image-preview-box">
+            </div>
+
+            <div class="form-group">
+              <label for="prodDescription" class="form-label">Product Description</label>
+              <textarea id="prodDescription" class="form-control" rows="3" placeholder="Describe the materials, package contents (e.g. includes roli, chawal, message card), and handcrafted charm..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" id="prodSubmitBtn" style="width: 100%;">
+              Add Product to Store
+            </button>
+          </form>
+        </div>
+
+        <!-- Store & WhatsApp Details Configuration -->
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3 style="font-size: 1.4rem;">Store & WhatsApp Settings</h3>
+            <span style="font-size: 0.8rem; color: var(--color-text-muted);">Syncs live to website</span>
+          </div>
+
+          <form id="adminSettingsForm">
+            <div class="form-group">
+              <label for="settingContactPerson" class="form-label">Contact Person Name</label>
+              <input type="text" id="settingContactPerson" class="form-control" placeholder="Viraj Patidar" required>
+            </div>
+
+            <div class="form-group">
+              <label for="settingWhatsappNumber" class="form-label">WhatsApp Contact Number (For Orders & Enquiries) *</label>
+              <input type="text" id="settingWhatsappNumber" class="form-control" placeholder="+919876543210" required>
+              <small style="color: var(--color-text-muted); font-size: 0.78rem;">
+                Include country code (e.g. +91 9876543210). All Cart "Buy Now" clicks will redirect to this number.
+              </small>
+            </div>
+
+            <div class="form-group">
+              <label for="settingInstagramHandle" class="form-label">Instagram Username</label>
+              <input type="text" id="settingInstagramHandle" class="form-control" placeholder="thevedaluxury">
+            </div>
+
+            <div class="form-group">
+              <label for="settingYoutubeVideoId" class="form-label">YouTube Video ID</label>
+              <input type="text" id="settingYoutubeVideoId" class="form-control" placeholder="e.g. ScMzIvxBSi4">
+              <small style="color: var(--color-text-muted); font-size: 0.78rem;">
+                The 11-character code from your YouTube video link.
+              </small>
+            </div>
+
+            <div class="form-group">
+              <label for="settingAdminPin" class="form-label">Change Admin Passcode</label>
+              <input type="password" id="settingAdminPin" class="form-control" placeholder="Enter new passcode to change">
+            </div>
+
+            <button type="submit" class="btn btn-secondary" style="width: 100%;">
+              Save Store Settings
+            </button>
+          </form>
+
+          <hr style="margin: 2rem 0; border: none; border-top: var(--border-soft);">
+
+          <div>
+            <h4 style="font-size: 1rem; margin-bottom: 0.5rem; color: var(--color-primary);">Data Backup & Restore</h4>
+            <p style="font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 0.8rem;">
+              Download a complete JSON backup of all your products, stock counts, and settings, or restore from a previously saved file.
+            </p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-bottom: 1rem;">
+              <button type="button" class="btn btn-secondary" id="exportBackupBtn" style="font-size: 0.82rem; padding: 0.6rem;">
+                📥 Download Backup
+              </button>
+              <label class="btn btn-secondary" style="font-size: 0.82rem; padding: 0.6rem; cursor: pointer; text-align: center;">
+                📤 Restore Backup
+                <input type="file" id="importBackupFile" accept=".json" style="display: none;">
+              </label>
+            </div>
+
+            <button type="button" class="btn btn-outline" id="restoreDefaultsBtn" style="width: 100%; border-color: #D32F2F; color: #D32F2F; font-size: 0.82rem;">
+              🔄 Reset Catalog to Default Flyer Products
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Catalog Inventory Table -->
+      <section class="admin-card">
+        <div class="admin-card-header" style="flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <h3 style="font-size: 1.4rem;">Catalog Inventory List</h3>
+            <p style="font-size: 0.85rem; color: var(--color-text-muted);">Manage current stock, edit prices, or remove products</p>
+          </div>
+
+          <div style="min-width: 260px;">
+            <input type="text" id="adminSearchProducts" class="form-control" placeholder="Search inventory list..." style="padding: 0.5rem 1rem;">
+          </div>
+        </div>
+
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Product</th>
+                <th>Category</th>
+                <th>Price / MRP</th>
+                <th>Inventory Stock</th>
+                <th>Occasion</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="adminProductsTableBody">
+              <!-- Rendered via js/admin.js -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="adminToastContainer" class="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="js/products.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

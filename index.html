@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Veda Luxury | Handcrafted Festive Gifts, Rakhis & Eco-Friendly Hampers</title>
+  <meta name="description" content="The Veda Luxury - Handcrafted with love. Discover eco-friendly Rakhis, luxury gift hampers, festive clay Diyas, and pure clay Ganesha idols for Ganesh Sthapna. Direct WhatsApp ordering with Viraj Patidar.">
+  <meta name="keywords" content="The Veda Luxury, handmade rakhi, eco-friendly ganesha murti, diwali diyas, luxury hampers, viraj patidar, handmade gifts india">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/logo.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="announcement-bar">
+    <span>✨ <strong>Festive Season Special</strong> • 100% Eco-Friendly & Handmade With Love • Pan-India Shipping Available</span>
+    <a href="#shop-section" class="announcement-link">Explore Handcrafted Collection ↓</a>
+  </div>
+
+  <!-- Main Navigation Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-identity">
+        <img src="assets/logo.png" alt="The Veda Luxury Logo" class="brand-logo-img">
+        <div class="brand-text-wrap">
+          <span class="brand-title store-name-text">The Veda Luxury</span>
+          <span class="brand-tagline store-tagline-text">Thoughtful Gifts, Beautiful Memories</span>
+        </div>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav class="main-nav">
+        <ul class="nav-links" id="mainNavMenu">
+          <li><a href="#home-section" class="active">Home</a></li>
+          <li class="nav-dropdown">
+            <a href="#shop-section" class="dropdown-trigger">
+              <span>Collections</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="#shop-section" onclick="App.activeCategory='all'; document.querySelectorAll('.category-tab').forEach(t => t.classList.toggle('active', t.getAttribute('data-cat')==='all')); App.renderProducts();">🌸 All Collections</a></li>
+              <li><a href="#shop-section" onclick="App.activeCategory='rakhi'; document.querySelectorAll('.category-tab').forEach(t => t.classList.toggle('active', t.getAttribute('data-cat')==='rakhi')); App.renderProducts();">🧵 Rakhi Collection</a></li>
+              <li><a href="#shop-section" onclick="App.activeCategory='hampers'; document.querySelectorAll('.category-tab').forEach(t => t.classList.toggle('active', t.getAttribute('data-cat')==='hampers')); App.renderProducts();">🎁 Luxury Hampers</a></li>
+              <li><a href="#shop-section" onclick="App.activeCategory='diwali'; document.querySelectorAll('.category-tab').forEach(t => t.classList.toggle('active', t.getAttribute('data-cat')==='diwali')); App.renderProducts();">🪔 Diwali Diyas & Decor</a></li>
+              <li><a href="#shop-section" onclick="App.activeCategory='ganesh'; document.querySelectorAll('.category-tab').forEach(t => t.classList.toggle('active', t.getAttribute('data-cat')==='ganesh')); App.renderProducts();">🌱 Ganesh Sthapna (Eco Murti)</a></li>
+            </ul>
+          </li>
+          <li><a href="#contact-section">Contact Us</a></li>
+        </ul>
+      </nav>
+
+      <!-- Header Actions -->
+      <div class="header-actions">
+        <!-- Cart Trigger Button -->
+        <button type="button" class="btn-header-cart open-cart-btn" id="headerCartBtn" aria-label="View Shopping Cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          <span>Cart</span>
+          <span class="cart-count-badge" id="headerCartCount" style="display: none;">0</span>
+        </button>
+
+        <!-- WhatsApp Quick Chat Button -->
+        <a href="#" target="_blank" rel="noopener noreferrer" class="btn-header-wa direct-whatsapp-btn" title="Chat with Viraj Patidar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.699c.971.53 2.062.81 3.201.81 3.181 0 5.768-2.586 5.768-5.766 0-3.18-2.587-5.766-5.773-5.766zm9.969 5.766c0 5.503-4.478 9.98-9.97 9.98-1.745 0-3.385-.45-4.819-1.237L2 22l1.341-4.898A9.92 9.92 0 0 1 2.062 11.938C2.062 6.435 6.54 1.958 12.032 1.958c5.492 0 9.968 4.477 9.968 9.98z"/>
+          </svg>
+          <span>WhatsApp</span>
+        </a>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button type="button" class="mobile-toggle-btn" id="mobileNavToggle" aria-label="Toggle navigation menu">
+          ☰
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section" id="home-section">
+    <div class="hero-sparkle-bg"></div>
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <div class="hero-tag">
+          <span class="lotus-icon">🪷</span>
+          <span>Made with Love, Curated for You</span>
+        </div>
+        <h1 class="hero-title">
+          Celebrate Every Bond With <span class="highlight-gold">Handmade Festive Luxury</span>
+        </h1>
+        <p class="hero-subtitle">
+          From exquisite handcrafted rakhis to eco-friendly clay Ganesha idols, festive Diwali diyas, and bespoke gift hampers. Every creation carries the warm touch of authentic artisan love.
+        </p>
+
+        <div class="hero-features-list">
+          <div class="hero-feature-item">
+            <span class="check-dot">✓</span>
+            <span>100% Eco-Friendly & Natural</span>
+          </div>
+          <div class="hero-feature-item">
+            <span class="check-dot">✓</span>
+            <span>Direct WhatsApp Checkout (No Login)</span>
+          </div>
+          <div class="hero-feature-item">
+            <span class="check-dot">✓</span>
+            <span>Pan-India Shipping & Local Delivery</span>
+          </div>
+          <div class="hero-feature-item">
+            <span class="check-dot">✓</span>
+            <span>Customized Personal Gift Cards</span>
+          </div>
+        </div>
+
+        <div class="hero-cta-group">
+          <a href="#shop-section" class="btn btn-primary">
+            <span>Explore Handcrafted Products</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-wa direct-whatsapp-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.699c.971.53 2.062.81 3.201.81 3.181 0 5.768-2.586 5.768-5.766 0-3.18-2.587-5.766-5.773-5.766zm9.969 5.766c0 5.503-4.478 9.98-9.97 9.98-1.745 0-3.385-.45-4.819-1.237L2 22l1.341-4.898A9.92 9.92 0 0 1 2.062 11.938C2.062 6.435 6.54 1.958 12.032 1.958c5.492 0 9.968 4.477 9.968 9.98z"/>
+            </svg>
+            <span>Order on WhatsApp</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Hero Visual Image Display -->
+      <div class="hero-visual-card">
+        <img src="assets/rakhi-collection-banner.png" alt="The Veda Luxury Rakhi Collection Poster" class="hero-banner-main">
+        
+        <div class="floating-hero-badge">
+          <div class="badge-icon">✨</div>
+          <div>
+            <div class="badge-label">Festive Pricing</div>
+            <div class="badge-value">Starting ₹20 Onwards</div>
+          </div>
+        </div>
+
+        <div class="floating-whatsapp-preview">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#25D366">
+            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.699c.971.53 2.062.81 3.201.81 3.181 0 5.768-2.586 5.768-5.766 0-3.18-2.587-5.766-5.773-5.766zm9.969 5.766c0 5.503-4.478 9.98-9.97 9.98-1.745 0-3.385-.45-4.819-1.237L2 22l1.341-4.898A9.92 9.92 0 0 1 2.062 11.938C2.062 6.435 6.54 1.958 12.032 1.958c5.492 0 9.968 4.477 9.968 9.98z"/>
+          </svg>
+          <span style="font-size: 0.85rem; font-weight: 600; color: #2D0F17;">Instant WhatsApp Confirmation</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Occasions Showcase Section -->
+  <section class="occasions-section" id="occasions-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-subtitle">Special Occasions</span>
+        <h2 class="section-title">Handcrafted For Every Sacred Celebration</h2>
+        <p class="section-desc">
+          We bring unique, traditional, and eco-conscious collections designed exclusively for India's most cherished festivals.
+        </p>
+      </div>
+
+      <div class="occasions-cards-grid">
+        <!-- Rakhi Festival Card -->
+        <div class="occasion-banner-card category-tab-trigger" onclick="App.activeCategory='rakhi'; document.querySelectorAll('.category-tab').forEach(t => t.classList.toggle('active', t.getAttribute('data-cat')==='rakhi')); App.renderProducts(); document.getElementById('shop-section').scrollIntoView({behavior:'smooth'});">
+          <div class="occasion-icon-circle">🧵</div>
+          <h3 class="occasion-card-title">Raksha Bandhan</h3>
+          <p class="occasion-card-text">
+            Simple Rakhis from ₹20, designer pearls, bunch packs of 12 for ₹150, and complete hampers with Roli & Chawal.
+          </p>
+          <span class="occasion-card-link">View Rakhis →</span>
+        </div>
+
+        <!-- Luxury Hampers Card -->
+        <div class="occasion-banner-card category-tab-trigger" onclick="App.activeCategory='hampers'; document.querySelectorAll('.category-tab').forEach(t => t.classList.toggle('active', t.getAttribute('data-cat')==='hampers')); App.renderProducts(); document.getElementById('shop-section').scrollIntoView({behavior:'smooth'});">
+          <div class="occasion-icon-circle">🎁</div>
+          <h3 class="occasion-card-title">Luxury Hampers</h3>
+          <p class="occasion-card-text">
+            Mini Hamper (₹150), Luxury Blue Hamper (₹250), Charm, Delight, and Signature gift sets up to ₹599.
+          </p>
+          <span class="occasion-card-link">View Hampers →</span>
+        </div>
+
+        <!-- Diwali Diyas Card -->
+        <div class="occasion-banner-card category-tab-trigger" onclick="App.activeCategory='diwali'; document.querySelectorAll('.category-tab').forEach(t => t.classList.toggle('active', t.getAttribute('data-cat')==='diwali')); App.renderProducts(); document.getElementById('shop-section').scrollIntoView({behavior:'smooth'});">
+          <div class="occasion-icon-circle">🪔</div>
+          <h3 class="occasion-card-title">Diwali Festival</h3>
+          <p class="occasion-card-text">
+            Handmade painted terracotta clay diyas, brass finish floral lamps, and auspicious Shubh Labh gift boxes.
+          </p>
+          <span class="occasion-card-link">View Diwali Diyas →</span>
+        </div>
+
+        <!-- Ganesh Chaturthi Sthapna Card -->
+        <div class="occasion-banner-card category-tab-trigger" onclick="App.activeCategory='ganesh'; document.querySelectorAll('.category-tab').forEach(t => t.classList.toggle('active', t.getAttribute('data-cat')==='ganesh')); App.renderProducts(); document.getElementById('shop-section').scrollIntoView({behavior:'smooth'});">
+          <div class="occasion-icon-circle">🐘</div>
+          <h3 class="occasion-card-title">Ganesh Sthapna</h3>
+          <p class="occasion-card-text">
+            100% natural clay eco-friendly Ganesha murti & plantable seed idols for divine and eco-conscious home visarjan.
+          </p>
+          <span class="occasion-card-link">View Ganesha Idols →</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Shop & Products Catalog Section -->
+  <section class="shop-section" id="shop-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-subtitle">Our Store Catalog</span>
+        <h2 class="section-title">Explore Handcrafted Collections</h2>
+        <p class="section-desc">
+          Select your quantity, add to cart, and checkout seamlessly via WhatsApp with Viraj Patidar. No passwords or signups!
+        </p>
+      </div>
+
+      <!-- Filter, Search & Sort Toolbar -->
+      <div class="shop-toolbar">
+        <!-- Occasion Category Tabs -->
+        <div class="shop-category-tabs">
+          <button type="button" class="category-tab active" data-cat="all">🌸 All Collections</button>
+          <button type="button" class="category-tab" data-cat="rakhi">🧵 Rakhi Collection</button>
+          <button type="button" class="category-tab" data-cat="hampers">🎁 Luxury Hampers</button>
+          <button type="button" class="category-tab" data-cat="diwali">🪔 Diwali Diyas & Gifts</button>
+          <button type="button" class="category-tab" data-cat="ganesh">🌱 Ganesh Sthapna (Eco-Murti)</button>
+        </div>
+
+        <!-- Search Bar and Sorting -->
+        <div class="shop-filter-bar">
+          <div class="search-input-wrap">
+            <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="productSearchInput" class="search-input" placeholder="Search by name, occasion, diyas, rakhi, hampers..." aria-label="Search products">
+          </div>
+
+          <div class="shop-sort-wrap">
+            <label for="sortBySelect">Sort By:</label>
+            <select id="sortBySelect" class="sort-select">
+              <option value="default">Featured & Popular</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+              <option value="name-asc">Alphabetical (A - Z)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Results Count Bar -->
+      <div class="results-count-bar" id="resultsCountDisplay">
+        Loading handcrafted items...
+      </div>
+
+      <!-- Products Grid (Dynamically Populated by js/app.js) -->
+      <div class="products-grid" id="productsGrid">
+        <!-- Cards rendered here via JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Curated Flyers Showcase Section -->
+  <section class="flyers-showcase-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-subtitle">Handcrafted Lookbooks</span>
+        <h2 class="section-title">Explore Our Curated Menu Cards</h2>
+        <p class="section-desc">
+          Take a look at our complete Rakhi catalog and Luxury Hamper price menus.
+        </p>
+      </div>
+
+      <div class="flyer-grid">
+        <!-- Rakhi Collection Flyer Card -->
+        <div class="flyer-card">
+          <div class="flyer-image-wrap">
+            <img src="assets/rakhi-collection-banner.png" alt="The Veda Luxury Rakhi Collection Menu" class="flyer-img">
+          </div>
+          <div class="flyer-content">
+            <h3>Rakhi Collection Menu</h3>
+            <p>From single designer rakhis starting at ₹20 to 12-piece bunch packs and customized hampers with roli-chawal vials and message cards.</p>
+            <button class="btn btn-secondary" onclick="App.activeCategory='rakhi'; document.querySelectorAll('.category-tab').forEach(t => t.classList.toggle('active', t.getAttribute('data-cat')==='rakhi')); App.renderProducts(); document.getElementById('shop-section').scrollIntoView({behavior:'smooth'});">
+              Shop Rakhi Collection →
+            </button>
+          </div>
+        </div>
+
+        <!-- Hamper Collection Flyer Card -->
+        <div class="flyer-card">
+          <div class="flyer-image-wrap">
+            <img src="assets/hamper-collection-banner.png" alt="The Veda Luxury Hamper Collection Menu" class="flyer-img">
+          </div>
+          <div class="flyer-content">
+            <h3>Luxury Hamper Menu</h3>
+            <p>Six tiers of handpicked luxury: Mini Hamper (₹150), Luxury Blue (₹250), Charm (₹300), Delight (₹350), Signature (₹499), and Premium (₹599).</p>
+            <button class="btn btn-secondary" onclick="App.activeCategory='hampers'; document.querySelectorAll('.category-tab').forEach(t => t.classList.toggle('active', t.getAttribute('data-cat')==='hampers')); App.renderProducts(); document.getElementById('shop-section').scrollIntoView({behavior:'smooth'});">
+              Shop Hamper Collection →
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- YouTube Video Showcase Section -->
+  <section class="video-showcase-section" id="video-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-subtitle">Artisan In Action</span>
+        <h2 class="section-title">Watch Our Crafting & Gifting Story</h2>
+        <p class="section-desc">
+          See the warmth, care, and meticulous detail poured into every handmade rakhi, painted diya, and luxury hamper box.
+        </p>
+      </div>
+
+      <div class="video-container-card">
+        <div class="video-responsive-frame">
+          <iframe 
+            src="https://www.youtube.com/embed/ScMzIvxBSi4?rel=0&modestbranding=1" 
+            title="The Veda Luxury Crafting & Festive Hampers Showcase" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="video-info-strip">
+          <div class="video-title-wrap">
+            <div class="yt-badge-icon">▶</div>
+            <div>
+              <strong style="color: var(--color-primary); font-size: 1.05rem;">The Veda Luxury Handmade Gifting Process</strong>
+              <div style="font-size: 0.82rem; color: var(--color-text-muted);">Watch our unboxing, eco-clay idol making, and festive packaging</div>
+            </div>
+          </div>
+          <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 0.85rem; padding: 0.5rem 1.1rem;">
+            Watch On YouTube ↗
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Brand Ethos & Core Values Section -->
+  <section class="ethos-section">
+    <div class="container">
+      <div class="ethos-grid">
+        <div class="ethos-card">
+          <div class="ethos-icon">🌱</div>
+          <h4>100% Eco-Friendly</h4>
+          <p>Made with natural river clay, organic non-toxic turmeric/kumkum colors, and zero plastic waste.</p>
+        </div>
+        <div class="ethos-card">
+          <div class="ethos-icon">🖐️</div>
+          <h4>Handmade with Love</h4>
+          <p>Every rakhi, diya, and idol is patiently crafted by hand, carrying genuine festive warmth.</p>
+        </div>
+        <div class="ethos-card">
+          <div class="ethos-icon">💌</div>
+          <h4>Customized Gifting</h4>
+          <p>Personalized calligraphy cards, custom chocolate choices, and tailored hamper combinations.</p>
+        </div>
+        <div class="ethos-card">
+          <div class="ethos-icon">📦</div>
+          <h4>Pan-India Delivery</h4>
+          <p>Safe, shock-proof luxury packaging delivered quickly to your doorstep across India.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Instagram Community Section -->
+  <section class="instagram-section" id="instagram-section">
+    <div class="container">
+      <div class="instagram-banner">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+        </svg>
+        <h2>Connect With Us on Instagram</h2>
+        <p>
+          Tag us in your festive celebrations! Follow our daily reels, festive behind-the-scenes, and upcoming collection drops.
+        </p>
+        <a href="https://instagram.com/thevedaluxury" target="_blank" rel="noopener noreferrer" class="btn btn-primary instagram-link" style="background: #FFFFFF; color: #521927; font-weight: 700;">
+          DM Us on Instagram @thevedaluxury ↗
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Us Section (Viraj Patidar & Direct WhatsApp) -->
+  <section class="contact-section" id="contact-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-subtitle">Get in Touch</span>
+        <h2 class="section-title">Direct Contact & Custom Orders</h2>
+        <p class="section-desc">
+          Speak directly with our founder Viraj Patidar for custom hampers, corporate orders, or quick dispatch queries.
+        </p>
+      </div>
+
+      <div class="contact-grid">
+        <!-- Contact Card -->
+        <div class="contact-card">
+          <div class="contact-card-header">
+            <img src="assets/logo.png" alt="Viraj Patidar - The Veda Luxury" class="contact-avatar">
+            <div>
+              <h3 class="contact-card-title contact-person-name">Viraj Patidar</h3>
+              <div class="contact-card-role">Founder & Creative Curator</div>
+            </div>
+          </div>
+
+          <div class="contact-details-list">
+            <div class="contact-detail-row">
+              <div class="contact-detail-icon">💬</div>
+              <div>
+                <div class="contact-detail-label">WhatsApp & Phone</div>
+                <div class="contact-detail-val contact-whatsapp-display">+91 98765 43210</div>
+              </div>
+            </div>
+
+            <div class="contact-detail-row">
+              <div class="contact-detail-icon">📸</div>
+              <div>
+                <div class="contact-detail-label">Instagram Page</div>
+                <div class="contact-detail-val">
+                  <a href="https://instagram.com/thevedaluxury" target="_blank" rel="noopener noreferrer" class="instagram-link">@thevedaluxury</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact-detail-row">
+              <div class="contact-detail-icon">📍</div>
+              <div>
+                <div class="contact-detail-label">Delivery Reach</div>
+                <div class="contact-detail-val">Local Home Delivery & Pan-India Courier</div>
+              </div>
+            </div>
+          </div>
+
+          <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-wa direct-whatsapp-btn" style="width: 100%;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.699c.971.53 2.062.81 3.201.81 3.181 0 5.768-2.586 5.768-5.766 0-3.18-2.587-5.766-5.773-5.766zm9.969 5.766c0 5.503-4.478 9.98-9.97 9.98-1.745 0-3.385-.45-4.819-1.237L2 22l1.341-4.898A9.92 9.92 0 0 1 2.062 11.938C2.062 6.435 6.54 1.958 12.032 1.958c5.492 0 9.968 4.477 9.968 9.98z"/>
+            </svg>
+            <span>Chat Directly on WhatsApp</span>
+          </a>
+        </div>
+
+        <!-- Quick Inquiry Form -->
+        <div class="contact-form-wrap">
+          <h3>Send a Quick Enquiry</h3>
+          <p>Fill out the form below — your message will open right inside WhatsApp so Viraj can assist you immediately!</p>
+
+          <form id="contactForm">
+            <div class="form-group">
+              <label for="contactName" class="form-label">Your Full Name *</label>
+              <input type="text" id="contactName" class="form-control" placeholder="e.g. Ananya Sharma" required>
+            </div>
+
+            <div class="form-group">
+              <label for="contactPhone" class="form-label">WhatsApp Contact Number *</label>
+              <input type="tel" id="contactPhone" class="form-control" placeholder="e.g. 9876543210" required>
+            </div>
+
+            <div class="form-group">
+              <label for="contactOccasion" class="form-label">Occasion / Requirement</label>
+              <select id="contactOccasion" class="form-control">
+                <option value="Rakhi Collection">Raksha Bandhan Rakhis & Hampers</option>
+                <option value="Luxury Gift Hampers">Customized Luxury Hampers</option>
+                <option value="Diwali Diyas & Decor">Diwali Diyas & Gift Boxes</option>
+                <option value="Eco Ganesh Murti">Eco-Friendly Ganesh Murti Sthapna</option>
+                <option value="Bulk / Corporate Gifting">Bulk / Corporate Gifting Order</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="contactMessage" class="form-label">Your Message or Customization Needs *</label>
+              <textarea id="contactMessage" class="form-control" rows="3" placeholder="Tell us what you're looking for, desired quantities, delivery city..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%;">
+              <span>Send Enquiry via WhatsApp</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand-col">
+          <div class="brand-identity" style="margin-bottom: 0.8rem;">
+            <img src="assets/logo.png" alt="The Veda Luxury Logo" class="brand-logo-img">
+            <span class="brand-title" style="color: #FFF;">The Veda Luxury</span>
+          </div>
+          <p>
+            Thoughtful Gifts, Beautiful Memories. Curating festive joy with 100% eco-friendly rakhis, artisan clay diyas, divine Ganesha idols, and luxury gift hampers.
+          </p>
+          <div class="footer-social-links">
+            <a href="https://instagram.com/thevedaluxury" target="_blank" rel="noopener noreferrer" class="social-circle-btn instagram-link" title="Instagram">📸</a>
+            <a href="#" target="_blank" rel="noopener noreferrer" class="social-circle-btn direct-whatsapp-btn" title="WhatsApp">💬</a>
+            <a href="#video-section" class="social-circle-btn" title="YouTube Showcase">▶</a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Festive Collections</h4>
+          <ul class="footer-links">
+            <li><a href="#shop-section" onclick="App.activeCategory='rakhi'; App.renderProducts();">Handmade Rakhis</a></li>
+            <li><a href="#shop-section" onclick="App.activeCategory='rakhi'; App.renderProducts();">Rakhi Bunch Packs (12 pcs)</a></li>
+            <li><a href="#shop-section" onclick="App.activeCategory='hampers'; App.renderProducts();">Luxury Gift Hampers</a></li>
+            <li><a href="#shop-section" onclick="App.activeCategory='diwali'; App.renderProducts();">Handmade Clay Diyas</a></li>
+            <li><a href="#shop-section" onclick="App.activeCategory='ganesh'; App.renderProducts();">Eco-Friendly Ganesh Murti</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="#home-section">Home</a></li>
+            <li><a href="#occasions-section">Special Occasions</a></li>
+            <li><a href="#shop-section">Shop Collection</a></li>
+            <li><a href="#video-section">Crafting Video</a></li>
+            <li><a href="#contact-section">Contact Viraj Patidar</a></li>
+            <li><a href="admin.html">Admin Portal ⚙️</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Direct Order Desk</h4>
+          <p style="font-size: 0.88rem; color: #D3B9BC; margin-bottom: 1rem;">
+            Order via WhatsApp with zero hassle. No passwords, instant chat confirmation with our curator.
+          </p>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-wa direct-whatsapp-btn" style="width: 100%; font-size: 0.85rem;">
+            Order with Viraj Patidar
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2024-2026 The Veda Luxury. All rights reserved. Handcrafted with love.</div>
+        <div>Contact Curator: Viraj Patidar • Ready to deploy on Render</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================================
+       Shopping Cart Drawer (Slide-Over)
+       ======================================================================== -->
+  <div class="cart-drawer-overlay" id="cartDrawerOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping Cart">
+    <div class="cart-drawer-header">
+      <div class="cart-header-title">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="9" cy="21" r="1"></circle>
+          <circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        </svg>
+        <h3>Your Shopping Bag</h3>
+      </div>
+      <button type="button" class="cart-close-btn" id="closeCartDrawerBtn" aria-label="Close cart">✕</button>
+    </div>
+
+    <!-- Drawer Body -->
+    <div class="cart-drawer-body">
+      <!-- Empty Cart Message -->
+      <div class="cart-empty-message" id="cartEmptyState" style="display: none;">
+        <div class="cart-empty-icon">🌸</div>
+        <h4>Your bag is currently empty</h4>
+        <p style="font-size: 0.9rem; color: var(--color-text-muted); margin: 0.5rem 0 1.5rem;">
+          Explore our handcrafted Rakhis, Diwali Diyas, or Luxury Hampers to start gifting!
+        </p>
+        <button type="button" class="btn btn-secondary" id="continueShoppingBtn">Explore Products</button>
+      </div>
+
+      <!-- Items List -->
+      <div class="cart-items-list" id="cartItemsContainer">
+        <!-- Rendered by Cart.renderCartUI() -->
+      </div>
+
+      <!-- Customer Checkout Details Box (Inside Cart) -->
+      <div class="cart-checkout-details-box" id="cartCheckoutFormBox">
+        <h4>📋 Delivery & Customization Details</h4>
+        <div class="form-group" style="margin-bottom: 0.8rem;">
+          <label for="checkoutName" class="form-label" style="font-size: 0.8rem;">Your Name *</label>
+          <input type="text" id="checkoutName" class="form-control" placeholder="Enter your full name" style="padding: 0.55rem 0.8rem; font-size: 0.85rem;" required>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 0.8rem;">
+          <label for="checkoutPhone" class="form-label" style="font-size: 0.8rem;">Contact Phone / WhatsApp *</label>
+          <input type="tel" id="checkoutPhone" class="form-control" placeholder="Enter 10-digit mobile number" style="padding: 0.55rem 0.8rem; font-size: 0.85rem;" required>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 0.8rem;">
+          <label for="checkoutAddress" class="form-label" style="font-size: 0.8rem;">Delivery Address / City</label>
+          <textarea id="checkoutAddress" class="form-control" rows="2" placeholder="Street, City, Pincode for shipping" style="padding: 0.55rem 0.8rem; font-size: 0.85rem; min-height: 60px;"></textarea>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 0;">
+          <label for="checkoutNote" class="form-label" style="font-size: 0.8rem;">Gift Note / Card Customization</label>
+          <input type="text" id="checkoutNote" class="form-control" placeholder="e.g. Message for brother, ribbon preference" style="padding: 0.55rem 0.8rem; font-size: 0.85rem;">
+        </div>
+      </div>
+    </div>
+
+    <!-- Drawer Footer -->
+    <div class="cart-drawer-footer" id="cartDrawerFooter">
+      <div class="cart-summary-line">
+        <span>Items Selected:</span>
+        <strong id="cartTotalCountDisplay">0 items</strong>
+      </div>
+      <div class="cart-summary-line">
+        <span>Delivery:</span>
+        <span style="color: var(--color-eco-green); font-weight: 600;">Pan-India / Local Delivery</span>
+      </div>
+      <div class="cart-total-line">
+        <span>Total Payable:</span>
+        <span class="cart-total-amount" id="cartSubtotalDisplay">₹0</span>
+      </div>
+
+      <!-- Checkout WhatsApp Button -->
+      <button type="button" class="btn btn-wa btn-whatsapp-order" id="whatsappCheckoutBtn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.699c.971.53 2.062.81 3.201.81 3.181 0 5.768-2.586 5.768-5.766 0-3.18-2.587-5.766-5.773-5.766zm9.969 5.766c0 5.503-4.478 9.98-9.97 9.98-1.745 0-3.385-.45-4.819-1.237L2 22l1.341-4.898A9.92 9.92 0 0 1 2.062 11.938C2.062 6.435 6.54 1.958 12.032 1.958c5.492 0 9.968 4.477 9.968 9.98z"/>
+        </svg>
+        <span>Complete Order on WhatsApp</span>
+      </button>
+
+      <div style="text-align: center; margin-top: 0.6rem; font-size: 0.75rem; color: var(--color-text-light);">
+        🔒 Direct connection to Viraj Patidar • No login required
+      </div>
+    </div>
+  </aside>
+
+  <!-- ========================================================================
+       Product Quick View Modal
+       ======================================================================== -->
+  <div class="modal-overlay" id="quickViewModalOverlay"></div>
+  <div class="modal-overlay" id="quickViewModal">
+    <div class="modal-container">
+      <button type="button" class="modal-close-btn" id="closeModalBtn" aria-label="Close dialog">✕</button>
+      <div class="modal-body">
+        <div class="modal-image-col">
+          <img id="modalProductImage" src="assets/logo.png" alt="Product Preview">
+        </div>
+        <div class="modal-details-col">
+          <div>
+            <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem; align-items: center;">
+              <span class="product-category-tag" id="modalProductCategory">Collection</span>
+              <span class="product-eco-badge" id="modalProductEco">🌱 Eco-Friendly</span>
+            </div>
+            <h2 id="modalProductTitle" style="font-size: 1.8rem; margin-bottom: 0.4rem;">Product Title</h2>
+            <div style="font-size: 0.85rem; color: var(--color-text-muted);" id="modalProductOccasion">Occasion</div>
+
+            <div class="modal-price-box">
+              <span class="modal-current-price" id="modalProductPrice">₹0</span>
+              <span class="modal-original-price" id="modalProductOriginalPrice">₹0</span>
+              <span class="discount-pill" id="modalProductDiscount">0% OFF</span>
+            </div>
+
+            <p id="modalProductDescription" style="font-size: 0.95rem; color: var(--color-text-muted); line-height: 1.6; margin-bottom: 1.5rem;">
+              Product description goes here.
+            </p>
+
+            <div style="font-size: 0.85rem; margin-bottom: 1.2rem;">
+              <strong>Stock Status:</strong> <span id="modalProductStock" style="color: var(--color-eco-green); font-weight: 600;">Available</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="modal-qty-row">
+              <span style="font-weight: 600; font-size: 0.9rem;">Select Quantity:</span>
+              <div class="cart-qty-picker">
+                <button type="button" class="qty-btn" id="modalQtyMinus">−</button>
+                <input type="number" id="modalProductQty" value="1" min="1" max="100" style="width: 45px; text-align: center; border: none; background: transparent; font-weight: 600; font-size: 0.9rem;" readonly>
+                <button type="button" class="qty-btn" id="modalQtyPlus">+</button>
+              </div>
+            </div>
+
+            <div class="modal-actions-row">
+              <button type="button" class="btn btn-secondary" id="modalAddToCartBtn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="9" cy="21" r="1"></circle>
+                  <circle cx="20" cy="21" r="1"></circle>
+                  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+                <span>Add to Cart</span>
+              </button>
+
+              <button type="button" class="btn btn-wa" id="modalBuyWhatsAppBtn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.699c.971.53 2.062.81 3.201.81 3.181 0 5.768-2.586 5.768-5.766 0-3.18-2.587-5.766-5.773-5.766zm9.969 5.766c0 5.503-4.478 9.98-9.97 9.98-1.745 0-3.385-.45-4.819-1.237L2 22l1.341-4.898A9.92 9.92 0 0 1 2.062 11.938C2.062 6.435 6.54 1.958 12.032 1.958c5.492 0 9.968 4.477 9.968 9.98z"/>
+                </svg>
+                <span>Buy via WhatsApp</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Direct WhatsApp Button -->
+  <a href="#" target="_blank" rel="noopener noreferrer" class="floating-wa-btn direct-whatsapp-btn" title="Chat with Viraj Patidar">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.699c.971.53 2.062.81 3.201.81 3.181 0 5.768-2.586 5.768-5.766 0-3.18-2.587-5.766-5.773-5.766zm9.969 5.766c0 5.503-4.478 9.98-9.97 9.98-1.745 0-3.385-.45-4.819-1.237L2 22l1.341-4.898A9.92 9.92 0 0 1 2.062 11.938C2.062 6.435 6.54 1.958 12.032 1.958c5.492 0 9.968 4.477 9.968 9.98z"/>
+    </svg>
+    <span>Chat with Viraj Patidar</span>
+  </a>
+
+  <!-- Scripts -->
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

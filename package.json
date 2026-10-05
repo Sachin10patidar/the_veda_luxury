@@ -1,0 +1,21 @@
+{
+  "name": "the-veda-luxury",
+  "version": "1.0.0",
+  "description": "The Veda Luxury - Handcrafted Festive Gifts & Eco-Friendly Hampers",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "ecommerce",
+    "the-veda-luxury",
+    "rakhi",
+    "diwali",
+    "ganesha",
+    "hampers",
+    "whatsapp-ecommerce"
+  ],
+  "author": "Viraj Patidar - The Veda Luxury",
+  "license": "ISC"
+}
