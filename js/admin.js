@@ -81,11 +81,15 @@ const Admin = {
     const inputInsta = document.getElementById('settingInstagramHandle');
     const inputYoutube = document.getElementById('settingYoutubeVideoId');
     const inputPin = document.getElementById('settingAdminPin');
+    const inputCloudName = document.getElementById('settingCloudinaryName');
+    const inputCloudPreset = document.getElementById('settingCloudinaryPreset');
 
     if (inputName) inputName.value = config.contactPerson || "Viraj Patidar";
     if (inputPhone) inputPhone.value = config.whatsappNumber || "+919876543210";
     if (inputInsta) inputInsta.value = config.instagramHandle || "thevedaluxury";
     if (inputYoutube) inputYoutube.value = config.youtubeVideoId || "ScMzIvxBSi4";
+    if (inputCloudName) inputCloudName.value = config.cloudinaryCloudName || "";
+    if (inputCloudPreset) inputCloudPreset.value = config.cloudinaryUploadPreset || "";
     if (inputPin) inputPin.value = "";
   },
 
@@ -98,6 +102,11 @@ const Admin = {
     config.instagramHandle = document.getElementById('settingInstagramHandle').value.trim() || "thevedaluxury";
     config.instagramUrl = `https://instagram.com/${config.instagramHandle}`;
     config.youtubeVideoId = document.getElementById('settingYoutubeVideoId').value.trim() || "ScMzIvxBSi4";
+
+    const cloudNameInput = document.getElementById('settingCloudinaryName');
+    const cloudPresetInput = document.getElementById('settingCloudinaryPreset');
+    config.cloudinaryCloudName = cloudNameInput ? cloudNameInput.value.trim() : "";
+    config.cloudinaryUploadPreset = cloudPresetInput ? cloudPresetInput.value.trim() : "";
     
     const newPin = document.getElementById('settingAdminPin').value.trim();
     if (newPin) {
@@ -221,26 +230,54 @@ const Admin = {
       return;
     }
 
-    // If an image was uploaded from local device, save it to server disk permanently
+    // If an image was uploaded from local device, save it permanently (Cloudinary or Server Disk)
     if (this.uploadedImageBase64) {
-      try {
-        const uploadRes = await fetch('/api/upload', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            image: this.uploadedImageBase64,
-            filename: name
-          })
-        });
-        if (uploadRes.ok) {
-          const uploadData = await uploadRes.json();
-          if (uploadData.url) {
-            finalImage = uploadData.url;
-            console.log('✅ Image permanently stored on server:', finalImage);
+      const config = StoreManager.getConfig();
+
+      // 1. Try Cloudinary if configured
+      if (config.cloudinaryCloudName && config.cloudinaryUploadPreset) {
+        try {
+          const formData = new FormData();
+          formData.append('file', this.uploadedImageBase64);
+          formData.append('upload_preset', config.cloudinaryUploadPreset);
+
+          const cRes = await fetch(`https://api.cloudinary.com/v1_1/${config.cloudinaryCloudName}/image/upload`, {
+            method: 'POST',
+            body: formData
+          });
+          if (cRes.ok) {
+            const cData = await cRes.json();
+            if (cData.secure_url) {
+              finalImage = cData.secure_url;
+              console.log('✅ Image permanently hosted on Cloudinary:', finalImage);
+            }
           }
+        } catch (cErr) {
+          console.warn('Cloudinary upload error, trying server upload fallback:', cErr);
         }
-      } catch (uploadErr) {
-        console.warn('Server upload unavailable, falling back to local base64:', uploadErr);
+      }
+
+      // 2. Fallback to Server Disk /api/upload
+      if (finalImage.startsWith('data:image/')) {
+        try {
+          const uploadRes = await fetch('/api/upload', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              image: this.uploadedImageBase64,
+              filename: name
+            })
+          });
+          if (uploadRes.ok) {
+            const uploadData = await uploadRes.json();
+            if (uploadData.url) {
+              finalImage = uploadData.url;
+              console.log('✅ Image permanently stored on server disk:', finalImage);
+            }
+          }
+        } catch (uploadErr) {
+          console.warn('Server upload unavailable, falling back to local base64:', uploadErr);
+        }
       }
     }
 

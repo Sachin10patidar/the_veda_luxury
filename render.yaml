@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: the-veda-luxury
+    runtime: node
+    plan: free
+    region: singapore
+    buildCommand: echo "Building The Veda Luxury..."
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production

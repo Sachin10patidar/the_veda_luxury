@@ -248,6 +248,26 @@
               </small>
             </div>
 
+            <div style="background: var(--bg-cream); padding: 1rem; border-radius: var(--radius-sm); border: var(--border-delicate); margin-bottom: 1.2rem;">
+              <label class="form-label" style="font-weight: 700; color: var(--color-primary); margin-bottom: 0.2rem;">
+                ☁️ Cloudinary Free Storage (25GB Free Forever)
+              </label>
+              <small style="color: var(--color-text-muted); font-size: 0.76rem; display: block; margin-bottom: 0.6rem;">
+                Optional: Store uploaded photos permanently in the cloud so they never disappear when Render restarts.
+              </small>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem;">
+                <div>
+                  <label for="settingCloudinaryName" style="font-size: 0.78rem; font-weight: 600;">Cloud Name</label>
+                  <input type="text" id="settingCloudinaryName" class="form-control" placeholder="e.g. dxyz123" style="padding: 0.5rem; font-size: 0.82rem;">
+                </div>
+                <div>
+                  <label for="settingCloudinaryPreset" style="font-size: 0.78rem; font-weight: 600;">Upload Preset</label>
+                  <input type="text" id="settingCloudinaryPreset" class="form-control" placeholder="e.g. veda_preset" style="padding: 0.5rem; font-size: 0.82rem;">
+                </div>
+              </div>
+            </div>
+
             <div class="form-group">
               <label for="settingAdminPin" class="form-label">Change Admin Passcode</label>
               <input type="password" id="settingAdminPin" class="form-control" placeholder="Enter new passcode to change">
