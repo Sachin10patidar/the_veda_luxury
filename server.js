@@ -52,8 +52,8 @@ function parseBody(req) {
     let body = '';
     req.on('data', chunk => {
       body += chunk.toString();
-      // 10MB limit for image uploads
-      if (body.length > 10 * 1024 * 1024) {
+      // 15MB limit for image uploads
+      if (body.length > 15 * 1024 * 1024) {
         req.connection.destroy();
         reject(new Error('Payload too large'));
       }

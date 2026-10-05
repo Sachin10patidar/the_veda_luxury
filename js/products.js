@@ -441,7 +441,7 @@ const StoreManager = {
 
   getProductById(id) {
     const products = this.getProducts();
-    return products.find(p => p.id === id) || null;
+    return products.find(p => String(p.id) === String(id)) || null;
   },
 
   addProduct(productData) {
@@ -469,7 +469,7 @@ const StoreManager = {
 
   updateProduct(id, updatedFields) {
     const products = this.getProducts();
-    const index = products.findIndex(p => p.id === id);
+    const index = products.findIndex(p => String(p.id) === String(id));
     if (index === -1) return null;
 
     products[index] = {
@@ -486,7 +486,7 @@ const StoreManager = {
 
   deleteProduct(id) {
     let products = this.getProducts();
-    products = products.filter(p => p.id !== id);
+    products = products.filter(p => String(p.id) !== String(id));
     this.saveProducts(products);
     return true;
   },

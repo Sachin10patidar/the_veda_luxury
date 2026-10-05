@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 const Admin = {
   editingProductId: null,
   uploadedImageBase64: null,
+  uploadedCloudinaryUrl: null,
 
   init() {
     this.checkAuth();
@@ -171,10 +172,10 @@ const Admin = {
           <td>${p.occasion || 'General'}</td>
           <td>
             <div class="table-actions">
-              <button class="btn-action edit-btn" onclick="Admin.openEditModal('${p.id}')" title="Edit product">
+              <button type="button" class="btn-action edit-btn" onclick="Admin.openEditModal('${p.id}')" title="Edit product">
                 ✏️ Edit
               </button>
-              <button class="btn-action delete-btn" onclick="Admin.deleteProduct('${p.id}')" title="Delete product">
+              <button type="button" class="btn-action delete-btn" onclick="Admin.deleteProduct('${p.id}', this)" title="Delete product">
                 🗑️
               </button>
             </div>
@@ -186,23 +187,108 @@ const Admin = {
     tbody.innerHTML = html;
   },
 
-  handleImageUpload(fileInput) {
+  async handleImageUpload(fileInput) {
     const file = fileInput.files[0];
     if (!file) return;
 
-    // Check size limit (max 3MB for base64 storage)
-    if (file.size > 3 * 1024 * 1024) {
-      alert("Image is larger than 3MB. Please choose a smaller image for best performance.");
+    // Allow images up to 10MB (Cloudinary supported limit)
+    if (file.size > 10 * 1024 * 1024) {
+      alert("Image is larger than 10MB. Please choose an image under 10MB.");
       return;
     }
 
+    const statusEl = document.getElementById('imageUploadStatus');
+    const previewEl = document.getElementById('productImagePreview');
+    const urlInput = document.getElementById('prodImageUrl');
+
+    const config = StoreManager.getConfig();
+    const cloudName = (config.cloudinaryCloudName || document.getElementById('settingCloudinaryName')?.value || "imeeobej").trim();
+    const cloudPreset = (config.cloudinaryUploadPreset || document.getElementById('settingCloudinaryPreset')?.value || "veda_preset").trim();
+
+    if (statusEl) {
+      statusEl.style.display = 'block';
+      statusEl.innerHTML = `<span style="color: var(--color-primary); font-weight: 600;">☁️ Uploading image to Cloudinary (${cloudName})... Please wait.</span>`;
+    }
+
     const reader = new FileReader();
-    reader.onload = (e) => {
-      this.uploadedImageBase64 = e.target.result;
-      const previewEl = document.getElementById('productImagePreview');
+    reader.onload = async (e) => {
+      let imageToUpload = e.target.result;
+
+      // Auto-optimize image on canvas if larger than 1800px or >1MB
+      try {
+        const img = new Image();
+        img.src = e.target.result;
+        await new Promise(resolve => { img.onload = resolve; });
+
+        const maxDimension = 1800;
+        let width = img.width;
+        let height = img.height;
+
+        if (width > maxDimension || height > maxDimension || file.size > 1024 * 1024) {
+          if (width > height) {
+            if (width > maxDimension) {
+              height = Math.round((height * maxDimension) / width);
+              width = maxDimension;
+            }
+          } else {
+            if (height > maxDimension) {
+              width = Math.round((width * maxDimension) / height);
+              height = maxDimension;
+            }
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          imageToUpload = canvas.toDataURL('image/jpeg', 0.88);
+        }
+      } catch (optErr) {
+        console.warn("Canvas optimization skipped:", optErr);
+      }
+
+      this.uploadedImageBase64 = imageToUpload;
       if (previewEl) {
-        previewEl.src = this.uploadedImageBase64;
+        previewEl.src = imageToUpload;
         previewEl.style.display = 'block';
+      }
+
+      // Immediately upload to Cloudinary
+      try {
+        const formData = new FormData();
+        formData.append('file', imageToUpload);
+        formData.append('upload_preset', cloudPreset);
+
+        const cRes = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+          method: 'POST',
+          body: formData
+        });
+
+        if (cRes.ok) {
+          const cData = await cRes.json();
+          if (cData.secure_url) {
+            this.uploadedCloudinaryUrl = cData.secure_url;
+            if (urlInput) urlInput.value = cData.secure_url;
+            if (previewEl) previewEl.src = cData.secure_url;
+            if (statusEl) {
+              statusEl.innerHTML = `<span style="color: #27ae60; font-weight: 700;">✅ Uploaded to Cloudinary!</span> <a href="${cData.secure_url}" target="_blank" style="color: var(--color-primary); text-decoration: underline; margin-left: 0.5rem; font-size: 0.78rem;">View Link ↗</a>`;
+            }
+            this.showToast("Image uploaded to Cloudinary successfully!", "success");
+            console.log("✅ Cloudinary direct upload success:", cData.secure_url);
+            return;
+          }
+        } else {
+          const errData = await cRes.json().catch(() => ({}));
+          console.warn("Cloudinary upload failed:", errData);
+          if (statusEl) {
+            statusEl.innerHTML = `<span style="color: #e74c3c;">⚠️ Cloudinary upload issue: ${errData.error?.message || 'Check preset'}. Will save via server backup.</span>`;
+          }
+        }
+      } catch (cErr) {
+        console.warn("Cloudinary fetch error:", cErr);
+        if (statusEl) {
+          statusEl.innerHTML = `<span style="color: #e74c3c;">⚠️ Upload error: ${cErr.message}. Will save via server backup.</span>`;
+        }
       }
     };
     reader.readAsDataURL(file);
@@ -223,48 +309,53 @@ const Admin = {
     const description = document.getElementById('prodDescription').value.trim();
     const imageUrlInput = document.getElementById('prodImageUrl').value.trim();
 
-    let finalImage = this.uploadedImageBase64 || imageUrlInput || "assets/luxury-hamper.jpg";
+    let finalImage = this.uploadedCloudinaryUrl || imageUrlInput || this.uploadedImageBase64 || "assets/luxury-hamper.jpg";
 
     if (!name || isNaN(price)) {
       alert("Please provide valid product name and price!");
       return;
     }
 
-    // If an image was uploaded from local device, save it permanently (Cloudinary or Server Disk)
-    if (this.uploadedImageBase64) {
+    const submitBtn = document.getElementById('prodSubmitBtn');
+    const originalBtnText = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Saving Product...";
+
+    // If image is still a base64 string, upload it to Cloudinary or Server Disk
+    if (finalImage.startsWith('data:image/')) {
       const config = StoreManager.getConfig();
+      const cloudName = (config.cloudinaryCloudName || document.getElementById('settingCloudinaryName')?.value || "imeeobej").trim();
+      const cloudPreset = (config.cloudinaryUploadPreset || document.getElementById('settingCloudinaryPreset')?.value || "veda_preset").trim();
 
-      // 1. Try Cloudinary if configured
-      if (config.cloudinaryCloudName && config.cloudinaryUploadPreset) {
-        try {
-          const formData = new FormData();
-          formData.append('file', this.uploadedImageBase64);
-          formData.append('upload_preset', config.cloudinaryUploadPreset);
+      // 1. Try Cloudinary
+      try {
+        const formData = new FormData();
+        formData.append('file', finalImage);
+        formData.append('upload_preset', cloudPreset);
 
-          const cRes = await fetch(`https://api.cloudinary.com/v1_1/${config.cloudinaryCloudName}/image/upload`, {
-            method: 'POST',
-            body: formData
-          });
-          if (cRes.ok) {
-            const cData = await cRes.json();
-            if (cData.secure_url) {
-              finalImage = cData.secure_url;
-              console.log('✅ Image permanently hosted on Cloudinary:', finalImage);
-            }
+        const cRes = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+          method: 'POST',
+          body: formData
+        });
+        if (cRes.ok) {
+          const cData = await cRes.json();
+          if (cData.secure_url) {
+            finalImage = cData.secure_url;
+            console.log('✅ Image permanently hosted on Cloudinary:', finalImage);
           }
-        } catch (cErr) {
-          console.warn('Cloudinary upload error, trying server upload fallback:', cErr);
         }
+      } catch (cErr) {
+        console.warn('Cloudinary upload error:', cErr);
       }
 
-      // 2. Fallback to Server Disk /api/upload
+      // 2. Fallback to Server Disk /api/upload if still base64
       if (finalImage.startsWith('data:image/')) {
         try {
           const uploadRes = await fetch('/api/upload', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              image: this.uploadedImageBase64,
+              image: finalImage,
               filename: name
             })
           });
@@ -276,7 +367,7 @@ const Admin = {
             }
           }
         } catch (uploadErr) {
-          console.warn('Server upload unavailable, falling back to local base64:', uploadErr);
+          console.warn('Server upload fallback error:', uploadErr);
         }
       }
     }
@@ -349,6 +440,7 @@ const Admin = {
   cancelEdit() {
     this.editingProductId = null;
     this.uploadedImageBase64 = null;
+    this.uploadedCloudinaryUrl = null;
     this.resetProductForm();
 
     document.getElementById('formSectionTitle').textContent = "Upload & Add New Product";
@@ -356,26 +448,71 @@ const Admin = {
     document.getElementById('cancelEditBtn').style.display = 'none';
   },
 
-  deleteProduct(productId) {
+  deleteProduct(productId, btnElement) {
     const product = StoreManager.getProductById(productId);
-    if (!product) return;
+    const prodName = product ? product.name : "this product";
 
-    const confirmed = confirm(`Are you sure you want to delete "${product.name}"?`);
-    if (confirmed) {
-      StoreManager.deleteProduct(productId);
-      this.showToast(`Product "${product.name}" deleted.`, "info");
-      this.loadStats();
+    const confirmed = confirm(`Are you sure you want to delete "${prodName}"?`);
+    if (!confirmed) return;
+
+    // 1. Immediately delete from data storage
+    StoreManager.deleteProduct(productId);
+
+    // 2. Instantly animate and remove the row from the DOM
+    const row = btnElement ? btnElement.closest('tr') : document.querySelector(`button[onclick*="${productId}"]`)?.closest('tr');
+    if (row) {
+      row.style.transition = 'all 0.25s ease';
+      row.style.opacity = '0';
+      row.style.transform = 'translateX(-20px)';
+      setTimeout(() => {
+        row.remove();
+        // Re-number remaining rows in view
+        document.querySelectorAll('#adminProductsTableBody tr').forEach((r, idx) => {
+          const numSpan = r.querySelector('.row-num');
+          if (numSpan) numSpan.textContent = idx + 1;
+        });
+        // If all items removed, render empty state
+        const remaining = document.querySelectorAll('#adminProductsTableBody tr');
+        if (remaining.length === 0) {
+          const tbody = document.getElementById('adminProductsTableBody');
+          if (tbody) {
+            tbody.innerHTML = `
+              <tr>
+                <td colspan="7" style="text-align: center; padding: 2rem; color: #888;">
+                  No products found. Add a new product using the form above.
+                </td>
+              </tr>
+            `;
+          }
+        }
+      }, 250);
+    } else {
       this.renderProductsTable();
     }
+
+    // 3. Update dashboard counters & show toast
+    this.loadStats();
+    this.showToast(`Product "${prodName}" deleted successfully!`, "info");
   },
 
   resetProductForm() {
     document.getElementById('productForm').reset();
     this.uploadedImageBase64 = null;
+    this.uploadedCloudinaryUrl = null;
     const previewEl = document.getElementById('productImagePreview');
     if (previewEl) {
       previewEl.src = '';
       previewEl.style.display = 'none';
+    }
+    const statusEl = document.getElementById('imageUploadStatus');
+    if (statusEl) {
+      statusEl.style.display = 'none';
+      statusEl.innerHTML = '';
+    }
+    const submitBtn = document.getElementById('prodSubmitBtn');
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = this.editingProductId ? "Save Changes" : "Add Product to Store";
     }
   },
 
