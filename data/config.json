@@ -9,5 +9,7 @@
   "youtubeVideoId": "ScMzIvxBSi4",
   "address": "Handcrafted Studio, Indore, Madhya Pradesh, India",
   "shippingNotice": "Free local delivery available • Pan India secure shipping",
-  "adminPin": "veda123"
+  "adminPin": "veda123",
+  "cloudinaryCloudName": "imeeobej",
+  "cloudinaryUploadPreset": "veda_preset"
 }

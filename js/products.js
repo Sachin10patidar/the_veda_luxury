@@ -21,7 +21,9 @@ const DEFAULT_CONFIG = {
   youtubeVideoId: "ScMzIvxBSi4",
   address: "Handcrafted Studio, Indore, Madhya Pradesh, India",
   shippingNotice: "Free local delivery available • Pan India secure shipping",
-  adminPin: "veda123"
+  adminPin: "veda123",
+  cloudinaryCloudName: "imeeobej",
+  cloudinaryUploadPreset: "veda_preset"
 };
 
 // Default Products Seed Data matching the user flyers & requests
@@ -373,7 +375,13 @@ const StoreManager = {
     try {
       const stored = localStorage.getItem(STORAGE_KEYS.CONFIG);
       if (stored) {
-        return { ...DEFAULT_CONFIG, ...JSON.parse(stored) };
+        const parsed = JSON.parse(stored);
+        return {
+          ...DEFAULT_CONFIG,
+          ...parsed,
+          cloudinaryCloudName: parsed.cloudinaryCloudName || DEFAULT_CONFIG.cloudinaryCloudName,
+          cloudinaryUploadPreset: parsed.cloudinaryUploadPreset || DEFAULT_CONFIG.cloudinaryUploadPreset
+        };
       }
     } catch (e) {
       console.warn("Error reading config from storage:", e);

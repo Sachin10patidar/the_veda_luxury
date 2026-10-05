@@ -1,5 +1,21 @@
 [
   {
+    "id": "test-cloudinary-1791234117229",
+    "name": "Eco Ganesh Murti (Cloudinary Verified)",
+    "category": "ganesh",
+    "categoryLabel": "Ganesh Sthapna",
+    "price": 399,
+    "originalPrice": 550,
+    "quantity": 25,
+    "image": "https://res.cloudinary.com/imeeobej/image/upload/v1791234102/krtbwalaitjmhrca3ixz.jpg",
+    "tag": "100% Eco-Friendly",
+    "badge": "Cloudinary Live",
+    "description": "Tested and verified live image hosted on Cloudinary account imeeobej.",
+    "occasion": "Ganesh Chaturthi",
+    "ecoFriendly": true,
+    "featured": true
+  },
+  {
     "id": "rakhi-simple",
     "name": "Simple Rakhi",
     "category": "rakhi",
