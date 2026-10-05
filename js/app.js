@@ -12,8 +12,31 @@ const App = {
   searchQuery: '',
   sortBy: 'default',
   currentModalProduct: null,
+  isCatalogPage: false,
+  currentPage: 1,
+  pageSize: 12,
 
   init() {
+    this.isCatalogPage = document.body.classList.contains('catalog-page') || window.location.pathname.includes('products.html');
+
+    // Read URL category filter if present (e.g. products.html?category=rakhi)
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const catParam = urlParams.get('category');
+      if (catParam) {
+        this.activeCategory = catParam;
+        document.querySelectorAll('.category-tab').forEach(tab => {
+          tab.classList.toggle('active', tab.getAttribute('data-cat') === catParam);
+        });
+      }
+      const searchParam = urlParams.get('search');
+      if (searchParam) {
+        this.searchQuery = searchParam;
+        const searchInput = document.getElementById('productSearchInput');
+        if (searchInput) searchInput.value = searchParam;
+      }
+    } catch (e) {}
+
     this.updateBrandDetails();
     this.renderProducts();
     this.bindEvents();
@@ -31,10 +54,33 @@ const App = {
     document.querySelectorAll('.contact-person-name').forEach(el => el.textContent = config.contactPerson);
     document.querySelectorAll('.contact-whatsapp-display').forEach(el => el.textContent = config.whatsappNumber);
 
-    // Update Instagram links
+    // Update Instagram links & handles
+    let instaHandle = (config.instagramHandle || "thevedaluxury").trim().replace(/^@/, '');
+    if (instaHandle.includes('instagram.com/')) {
+      instaHandle = instaHandle.split('instagram.com/')[1].split('/')[0].split('?')[0];
+    }
+    const instaUrl = config.instagramUrl || `https://instagram.com/${instaHandle}`;
     document.querySelectorAll('.instagram-link').forEach(el => {
-      el.href = config.instagramUrl || `https://instagram.com/${config.instagramHandle}`;
+      el.href = instaUrl;
     });
+    document.querySelectorAll('.instagram-handle-text').forEach(el => {
+      el.textContent = `@${instaHandle}`;
+    });
+
+    // Update YouTube Video Embed & Watch Link
+    let rawYt = (config.youtubeVideoId || "ScMzIvxBSi4").trim();
+    const ytMatch = rawYt.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/))([\w-]{11})/);
+    if (ytMatch && ytMatch[1]) {
+      rawYt = ytMatch[1];
+    }
+    const ytFrame = document.getElementById('youtubeShowcaseFrame');
+    if (ytFrame) {
+      ytFrame.src = `https://www.youtube.com/embed/${rawYt}?rel=0&modestbranding=1`;
+    }
+    const ytWatchLink = document.getElementById('youtubeWatchLink');
+    if (ytWatchLink) {
+      ytWatchLink.href = `https://www.youtube.com/watch?v=${rawYt}`;
+    }
 
     // Update WhatsApp links
     const cleanNumber = config.whatsappNumber.replace(/[^0-9]/g, '');
@@ -78,13 +124,51 @@ const App = {
       products.sort((a, b) => a.name.localeCompare(b.name));
     }
 
-    // Update product count label
+    const totalMatching = products.length;
+
+    // 4. Pagination / Limit Handling
+    let productsToDisplay = products;
     const countDisplay = document.getElementById('resultsCountDisplay');
-    if (countDisplay) {
-      countDisplay.textContent = `Showing ${products.length} handcrafted item${products.length !== 1 ? 's' : ''}`;
+
+    if (!this.isCatalogPage) {
+      // HOME PAGE: Show only top 8 items on 'all' preview so user doesn't have to scroll endlessly
+      if (this.activeCategory === 'all' && !this.searchQuery.trim()) {
+        productsToDisplay = products.slice(0, 8);
+        if (countDisplay) {
+          countDisplay.innerHTML = `Showing <strong>8 featured items</strong> of <strong>${totalMatching}</strong> handcrafted gifts • <a href="products.html" style="color: var(--color-primary); font-weight: 600; text-decoration: underline; margin-left: 0.3rem;">View All Collections (${totalMatching}) →</a>`;
+        }
+      } else {
+        if (countDisplay) {
+          countDisplay.innerHTML = `Showing <strong>${totalMatching}</strong> handcrafted item${totalMatching !== 1 ? 's' : ''}`;
+        }
+      }
+    } else {
+      // CATALOG PAGE (products.html): Show 12 items at a time with 'Load More'
+      const maxCount = Math.min(this.currentPage * this.pageSize, totalMatching);
+      productsToDisplay = products.slice(0, maxCount);
+
+      if (countDisplay) {
+        countDisplay.innerHTML = `Showing <strong>${productsToDisplay.length}</strong> of <strong>${totalMatching}</strong> handcrafted items`;
+      }
+
+      const loadMoreContainer = document.getElementById('loadMoreContainer');
+      const loadMoreBtn = document.getElementById('loadMoreBtn');
+      if (loadMoreContainer && loadMoreBtn) {
+        if (productsToDisplay.length < totalMatching) {
+          loadMoreContainer.style.display = 'block';
+          const spanText = loadMoreBtn.querySelector('span');
+          if (spanText) spanText.textContent = `Load More Products (${productsToDisplay.length} of ${totalMatching})`;
+          loadMoreBtn.onclick = () => {
+            this.currentPage++;
+            this.renderProducts();
+          };
+        } else {
+          loadMoreContainer.style.display = 'none';
+        }
+      }
     }
 
-    if (products.length === 0) {
+    if (totalMatching === 0) {
       grid.innerHTML = `
         <div class="empty-products-view">
           <div class="empty-icon">🌸</div>
@@ -97,7 +181,7 @@ const App = {
     }
 
     let html = '';
-    products.forEach(p => {
+    productsToDisplay.forEach(p => {
       const discountPct = p.originalPrice > p.price
         ? Math.round(((p.originalPrice - p.price) / p.originalPrice) * 100)
         : null;
@@ -173,6 +257,7 @@ const App = {
     this.activeCategory = 'all';
     this.searchQuery = '';
     this.sortBy = 'default';
+    this.currentPage = 1;
 
     const searchInput = document.getElementById('productSearchInput');
     if (searchInput) searchInput.value = '';
@@ -252,10 +337,11 @@ const App = {
         document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
         e.currentTarget.classList.add('active');
         this.activeCategory = e.currentTarget.getAttribute('data-cat') || 'all';
+        this.currentPage = 1;
         this.renderProducts();
 
         // Smooth scroll to products section
-        const shopSection = document.getElementById('shop-section');
+        const shopSection = document.getElementById('shop-section') || document.querySelector('.shop-section');
         if (shopSection) {
           shopSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
@@ -270,6 +356,7 @@ const App = {
         clearTimeout(searchTimeout);
         searchTimeout = setTimeout(() => {
           this.searchQuery = e.target.value;
+          this.currentPage = 1;
           this.renderProducts();
         }, 250);
       });
@@ -280,6 +367,7 @@ const App = {
     if (sortSelect) {
       sortSelect.addEventListener('change', (e) => {
         this.sortBy = e.target.value;
+        this.currentPage = 1;
         this.renderProducts();
       });
     }

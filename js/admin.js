@@ -100,9 +100,21 @@ const Admin = {
 
     config.contactPerson = document.getElementById('settingContactPerson').value.trim() || "Viraj Patidar";
     config.whatsappNumber = document.getElementById('settingWhatsappNumber').value.trim() || "+919876543210";
-    config.instagramHandle = document.getElementById('settingInstagramHandle').value.trim() || "thevedaluxury";
-    config.instagramUrl = `https://instagram.com/${config.instagramHandle}`;
-    config.youtubeVideoId = document.getElementById('settingYoutubeVideoId').value.trim() || "ScMzIvxBSi4";
+    let rawInsta = document.getElementById('settingInstagramHandle').value.trim() || "thevedaluxury";
+    rawInsta = rawInsta.replace(/^@/, '');
+    if (rawInsta.includes('instagram.com/')) {
+      rawInsta = rawInsta.split('instagram.com/')[1].split('/')[0].split('?')[0];
+    }
+    config.instagramHandle = rawInsta;
+    config.instagramUrl = `https://instagram.com/${rawInsta}`;
+
+    let rawYt = document.getElementById('settingYoutubeVideoId').value.trim() || "ScMzIvxBSi4";
+    const ytMatch = rawYt.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/))([\w-]{11})/);
+    if (ytMatch && ytMatch[1]) {
+      rawYt = ytMatch[1];
+    }
+    config.youtubeVideoId = rawYt;
+    config.youtubeUrl = `https://www.youtube.com/embed/${rawYt}`;
 
     const cloudNameInput = document.getElementById('settingCloudinaryName');
     const cloudPresetInput = document.getElementById('settingCloudinaryPreset');

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Products | The Veda Luxury Handcrafted Boutique</title>
+  <meta name="description" content="Explore the complete collection of handcrafted eco-friendly Rakhis, luxury festive gift hampers, clay Diyas, and organic Ganesh Sthapna idols by The Veda Luxury.">
+  <meta name="keywords" content="The Veda Luxury all products, buy rakhi online, luxury gift hampers, diwali diyas, eco ganesh murti, handcrafted gifts">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/logo.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .catalog-hero-section {
+      background: linear-gradient(135deg, rgba(254, 250, 246, 0.98), rgba(247, 225, 229, 0.6)), url('assets/hamper-collection-banner.png') center/cover no-repeat;
+      padding: 3.5rem 0 2.5rem;
+      border-bottom: var(--border-delicate);
+      position: relative;
+    }
+    .catalog-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      margin-bottom: 0.8rem;
+    }
+    .catalog-breadcrumb a {
+      color: var(--color-primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .catalog-breadcrumb a:hover {
+      text-decoration: underline;
+    }
+    .load-more-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 2.2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: var(--radius-full);
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .load-more-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+  </style>
+</head>
+<body class="catalog-page">
+
+  <!-- Top Announcement Bar -->
+  <div class="announcement-bar">
+    <span>✨ <strong>Festive Season Special</strong> • 100% Eco-Friendly & Handmade With Love • Pan-India Shipping</span>
+    <a href="index.html#shop-section" class="announcement-link">Back to Featured ↑</a>
+  </div>
+
+  <!-- Main Navigation Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-identity">
+        <img src="assets/logo.png" alt="The Veda Luxury Logo" class="brand-logo-img">
+        <div class="brand-text-wrap">
+          <span class="brand-title store-name-text">The Veda Luxury</span>
+          <span class="brand-tagline store-tagline-text">Thoughtful Gifts, Beautiful Memories</span>
+        </div>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav class="main-nav">
+        <ul class="nav-links" id="mainNavMenu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html" class="active">All Products</a></li>
+          <li class="nav-dropdown">
+            <a href="products.html" class="dropdown-trigger">
+              <span>Collections</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="products.html?category=all">🌸 All Collections</a></li>
+              <li><a href="products.html?category=rakhi">🧵 Rakhi Collection</a></li>
+              <li><a href="products.html?category=hampers">🎁 Luxury Hampers</a></li>
+              <li><a href="products.html?category=diwali">🪔 Diwali Diyas & Decor</a></li>
+              <li><a href="products.html?category=ganesh">🌱 Ganesh Sthapna (Eco Murti)</a></li>
+            </ul>
+          </li>
+          <li><a href="index.html#contact-section">Contact Us</a></li>
+        </ul>
+      </nav>
+
+      <!-- Header Actions -->
+      <div class="header-actions">
+        <!-- Cart Trigger Button -->
+        <button type="button" class="btn-header-cart open-cart-btn" id="headerCartBtn" aria-label="View Shopping Cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          <span>Cart</span>
+          <span class="cart-count-badge" id="headerCartCount" style="display: none;">0</span>
+        </button>
+
+        <!-- WhatsApp Quick Chat Button -->
+        <a href="#" target="_blank" rel="noopener noreferrer" class="btn-header-wa direct-whatsapp-btn" title="Chat with Viraj Patidar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.699c.971.53 2.062.81 3.201.81 3.181 0 5.768-2.586 5.768-5.766 0-3.18-2.587-5.766-5.773-5.766zm9.969 5.766c0 5.503-4.478 9.98-9.97 9.98-1.745 0-3.385-.45-4.819-1.237L2 22l1.341-4.898A9.92 9.92 0 0 1 2.062 11.938C2.062 6.435 6.54 1.958 12.032 1.958c5.492 0 9.968 4.477 9.968 9.98z"/>
+          </svg>
+          <span>WhatsApp</span>
+        </a>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button type="button" class="mobile-toggle-btn" id="mobileNavToggle" aria-label="Toggle navigation menu">
+          ☰
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Banner for Full Catalog -->
+  <section class="catalog-hero-section">
+    <div class="container">
+      <div class="catalog-breadcrumb">
+        <a href="index.html">Home</a>
+        <span>/</span>
+        <span>All Products</span>
+      </div>
+      <h1 class="section-title" style="margin-bottom: 0.5rem; text-align: left;">The Complete Boutique Collection</h1>
+      <p class="section-desc" style="text-align: left; margin: 0; max-width: 650px;">
+        Browse our full catalog of handcrafted Rakhis, luxury hampers, Diwali terracotta diyas, and plantable eco-friendly Ganesh idols. Instant checkout via WhatsApp.
+      </p>
+    </div>
+  </section>
+
+  <!-- Shop & Products Catalog Section -->
+  <section class="shop-section" style="padding-top: 2rem;">
+    <div class="container">
+      <!-- Filter, Search & Sort Toolbar -->
+      <div class="shop-toolbar">
+        <!-- Occasion Category Tabs -->
+        <div class="shop-category-tabs">
+          <button type="button" class="category-tab active" data-cat="all">🌸 All Collections</button>
+          <button type="button" class="category-tab" data-cat="rakhi">🧵 Rakhi Collection</button>
+          <button type="button" class="category-tab" data-cat="hampers">🎁 Luxury Hampers</button>
+          <button type="button" class="category-tab" data-cat="diwali">🪔 Diwali Diyas & Gifts</button>
+          <button type="button" class="category-tab" data-cat="ganesh">🌱 Ganesh Sthapna (Eco-Murti)</button>
+        </div>
+
+        <!-- Search Bar and Sorting -->
+        <div class="shop-filter-bar">
+          <div class="search-input-wrap">
+            <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="productSearchInput" class="search-input" placeholder="Search by name, occasion, diyas, rakhi, hampers..." aria-label="Search products">
+          </div>
+
+          <div class="shop-sort-wrap">
+            <label for="sortBySelect">Sort By:</label>
+            <select id="sortBySelect" class="sort-select">
+              <option value="default">Featured & Popular</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+              <option value="name-asc">Alphabetical (A - Z)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Results Count Bar -->
+      <div class="results-count-bar" id="resultsCountDisplay">
+        Loading handcrafted items...
+      </div>
+
+      <!-- Products Grid (Dynamically Populated by js/app.js) -->
+      <div class="products-grid" id="productsGrid">
+        <!-- Cards rendered here via JavaScript -->
+      </div>
+
+      <!-- Load More / Pagination Container -->
+      <div id="loadMoreContainer" style="text-align: center; margin: 3rem 0; display: none;">
+        <button type="button" id="loadMoreBtn" class="btn btn-secondary load-more-btn">
+          <span>Load More Products</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="footer-brand">
+            <img src="assets/logo.png" alt="The Veda Luxury Logo" class="footer-logo">
+            <span class="store-name-text">The Veda Luxury</span>
+          </div>
+          <p class="footer-desc store-tagline-text">
+            Thoughtful Gifts, Beautiful Memories
+          </p>
+          <div class="footer-social-links">
+            <a href="#" target="_blank" rel="noopener noreferrer" class="social-icon-btn instagram-link" aria-label="Follow us on Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+            </a>
+            <a href="#" target="_blank" rel="noopener noreferrer" class="social-icon-btn direct-whatsapp-btn" aria-label="Chat on WhatsApp">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.699c.971.53 2.062.81 3.201.81 3.181 0 5.768-2.586 5.768-5.766 0-3.18-2.587-5.766-5.773-5.766zm9.969 5.766c0 5.503-4.478 9.98-9.97 9.98-1.745 0-3.385-.45-4.819-1.237L2 22l1.341-4.898A9.92 9.92 0 0 1 2.062 11.938C2.062 6.435 6.54 1.958 12.032 1.958c5.492 0 9.968 4.477 9.968 9.98z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-col-title">Shop Collections</h4>
+          <ul class="footer-nav-list">
+            <li><a href="products.html?category=rakhi">Handmade Rakhis</a></li>
+            <li><a href="products.html?category=rakhi">Rakhi Bunch Packs (12 pcs)</a></li>
+            <li><a href="products.html?category=hampers">Luxury Gift Hampers</a></li>
+            <li><a href="products.html?category=diwali">Handmade Clay Diyas</a></li>
+            <li><a href="products.html?category=ganesh">Eco-Friendly Ganesh Murti</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-col-title">Quick Links</h4>
+          <ul class="footer-nav-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">All Products Catalog</a></li>
+            <li><a href="index.html#contact-section">Contact Curator</a></li>
+            <li><a href="admin.html">Store Admin Portal</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-col-title">Direct Order Desk</h4>
+          <p style="font-size: 0.88rem; color: #D3B9BC; margin-bottom: 1rem;">
+            Order via WhatsApp with zero hassle. Instant chat confirmation with Viraj Patidar.
+          </p>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-wa direct-whatsapp-btn" style="width: 100%; font-size: 0.85rem;">
+            Order with Viraj Patidar
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2024-2026 The Veda Luxury. All rights reserved. Handcrafted with love.</div>
+        <div>Contact Curator: Viraj Patidar • Ready to deploy on Render</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Shopping Cart Drawer -->
+  <div class="cart-drawer-overlay" id="cartDrawerOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping Cart">
+    <div class="cart-drawer-header">
+      <div class="cart-header-title">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="9" cy="21" r="1"></circle>
+          <circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        </svg>
+        <h3>Your Shopping Bag</h3>
+      </div>
+      <button type="button" class="cart-close-btn" id="closeCartDrawerBtn" aria-label="Close cart">✕</button>
+    </div>
+
+    <div class="cart-drawer-body">
+      <div class="cart-empty-message" id="cartEmptyState" style="display: none;">
+        <div class="cart-empty-icon">🌸</div>
+        <h4>Your bag is currently empty</h4>
+        <p style="font-size: 0.9rem; color: var(--color-text-muted); margin: 0.5rem 0 1.5rem;">
+          Explore our handcrafted Rakhis, Diwali Diyas, or Luxury Hampers to start gifting!
+        </p>
+        <button type="button" class="btn btn-secondary" id="continueShoppingBtn">Explore Products</button>
+      </div>
+
+      <div class="cart-items-list" id="cartItemsContainer"></div>
+
+      <div class="cart-checkout-details-box" id="cartCheckoutFormBox">
+        <h4>📋 Delivery & Customization Details</h4>
+        <div class="form-group" style="margin-bottom: 0.8rem;">
+          <label for="checkoutName" class="form-label" style="font-size: 0.8rem;">Your Name *</label>
+          <input type="text" id="checkoutName" class="form-control" placeholder="Enter your full name" style="padding: 0.55rem 0.8rem; font-size: 0.85rem;" required>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 0.8rem;">
+          <label for="checkoutPhone" class="form-label" style="font-size: 0.8rem;">Contact Phone / WhatsApp *</label>
+          <input type="tel" id="checkoutPhone" class="form-control" placeholder="Enter 10-digit mobile number" style="padding: 0.55rem 0.8rem; font-size: 0.85rem;" required>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 0.8rem;">
+          <label for="checkoutAddress" class="form-label" style="font-size: 0.8rem;">Delivery Address / City</label>
+          <textarea id="checkoutAddress" class="form-control" rows="2" placeholder="Street, City, Pincode for shipping" style="padding: 0.55rem 0.8rem; font-size: 0.85rem; min-height: 60px;"></textarea>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 0;">
+          <label for="checkoutNote" class="form-label" style="font-size: 0.8rem;">Gift Note / Card Customization</label>
+          <input type="text" id="checkoutNote" class="form-control" placeholder="e.g. Message for brother, ribbon preference" style="padding: 0.55rem 0.8rem; font-size: 0.85rem;">
+        </div>
+      </div>
+    </div>
+
+    <div class="cart-drawer-footer" id="cartDrawerFooter">
+      <div class="cart-summary-line">
+        <span>Items Selected:</span>
+        <strong id="cartTotalCountDisplay">0 items</strong>
+      </div>
+      <div class="cart-summary-line">
+        <span>Delivery:</span>
+        <span style="color: var(--color-eco-green); font-weight: 600;">Pan-India / Local Delivery</span>
+      </div>
+      <div class="cart-total-line">
+        <span>Total Payable:</span>
+        <span class="cart-total-amount" id="cartSubtotalDisplay">₹0</span>
+      </div>
+
+      <button type="button" class="btn btn-wa btn-whatsapp-order" id="whatsappCheckoutBtn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.699c.971.53 2.062.81 3.201.81 3.181 0 5.768-2.586 5.768-5.766 0-3.18-2.587-5.766-5.773-5.766zm9.969 5.766c0 5.503-4.478 9.98-9.97 9.98-1.745 0-3.385-.45-4.819-1.237L2 22l1.341-4.898A9.92 9.92 0 0 1 2.062 11.938C2.062 6.435 6.54 1.958 12.032 1.958c5.492 0 9.968 4.477 9.968 9.98z"/>
+        </svg>
+        <span>Complete Order on WhatsApp</span>
+      </button>
+
+      <div style="text-align: center; margin-top: 0.6rem; font-size: 0.75rem; color: var(--color-text-light);">
+        🔒 Direct connection to Viraj Patidar • No login required
+      </div>
+    </div>
+  </aside>
+
+  <!-- Product Quick View Modal -->
+  <div class="modal-overlay" id="quickViewModalOverlay"></div>
+  <div class="modal-overlay" id="quickViewModal">
+    <div class="modal-container">
+      <button type="button" class="modal-close-btn" id="closeModalBtn" aria-label="Close dialog">✕</button>
+      <div class="modal-body">
+        <div class="modal-image-col">
+          <img id="modalProductImage" src="assets/logo.png" alt="Product Preview">
+        </div>
+        <div class="modal-details-col">
+          <div>
+            <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem; align-items: center;">
+              <span class="product-category-tag" id="modalProductCategory">Collection</span>
+              <span class="product-eco-badge" id="modalProductEco">🌱 Eco-Friendly</span>
+            </div>
+            <h2 id="modalProductTitle" style="font-size: 1.8rem; margin-bottom: 0.4rem;">Product Title</h2>
+            <div style="font-size: 0.85rem; color: var(--color-text-muted);" id="modalProductOccasion">Occasion</div>
+
+            <div class="modal-price-box">
+              <span class="modal-current-price" id="modalProductPrice">₹0</span>
+              <span class="modal-original-price" id="modalProductOriginalPrice">₹0</span>
+              <span class="discount-pill" id="modalProductDiscount">0% OFF</span>
+            </div>
+
+            <p id="modalProductDescription" style="font-size: 0.95rem; color: var(--color-text-muted); line-height: 1.6; margin-bottom: 1.5rem;">
+              Product description goes here.
+            </p>
+
+            <div style="font-size: 0.85rem; margin-bottom: 1.2rem;">
+              <strong>Stock Status:</strong> <span id="modalProductStock" style="color: var(--color-eco-green); font-weight: 600;">Available</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="modal-qty-row">
+              <span style="font-weight: 600; font-size: 0.9rem;">Select Quantity:</span>
+              <div class="cart-qty-picker">
+                <button type="button" class="qty-btn" id="modalQtyMinus">−</button>
+                <input type="number" id="modalProductQty" value="1" min="1" max="100" style="width: 45px; text-align: center; border: none; background: transparent; font-weight: 600; font-size: 0.9rem;" readonly>
+                <button type="button" class="qty-btn" id="modalQtyPlus">+</button>
+              </div>
+            </div>
+
+            <div class="modal-actions-row">
+              <button type="button" class="btn btn-secondary" id="modalAddToCartBtn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="9" cy="21" r="1"></circle>
+                  <circle cx="20" cy="21" r="1"></circle>
+                  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+                <span>Add to Cart</span>
+              </button>
+
+              <button type="button" class="btn btn-wa" id="modalBuyWhatsAppBtn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.699c.971.53 2.062.81 3.201.81 3.181 0 5.768-2.586 5.768-5.766 0-3.18-2.587-5.766-5.773-5.766zm9.969 5.766c0 5.503-4.478 9.98-9.97 9.98-1.745 0-3.385-.45-4.819-1.237L2 22l1.341-4.898A9.92 9.92 0 0 1 2.062 11.938C2.062 6.435 6.54 1.958 12.032 1.958c5.492 0 9.968 4.477 9.968 9.98z"/>
+                </svg>
+                <span>Buy via WhatsApp</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Direct WhatsApp Button -->
+  <a href="#" target="_blank" rel="noopener noreferrer" class="floating-wa-btn direct-whatsapp-btn" title="Chat with Viraj Patidar">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.699c.971.53 2.062.81 3.201.81 3.181 0 5.768-2.586 5.768-5.766 0-3.18-2.587-5.766-5.773-5.766zm9.969 5.766c0 5.503-4.478 9.98-9.97 9.98-1.745 0-3.385-.45-4.819-1.237L2 22l1.341-4.898A9.92 9.92 0 0 1 2.062 11.938C2.062 6.435 6.54 1.958 12.032 1.958c5.492 0 9.968 4.477 9.968 9.98z"/>
+    </svg>
+    <span>Chat with Viraj Patidar</span>
+  </a>
+
+  <!-- Scripts -->
+  <script src="js/products.js?v=2.2"></script>
+  <script src="js/cart.js?v=2.2"></script>
+  <script src="js/app.js?v=2.2"></script>
+</body>
+</html>

@@ -41,6 +41,7 @@
       <nav class="main-nav">
         <ul class="nav-links" id="mainNavMenu">
           <li><a href="#home-section" class="active">Home</a></li>
+          <li><a href="products.html">All Products</a></li>
           <li class="nav-dropdown">
             <a href="#shop-section" class="dropdown-trigger">
               <span>Collections</span>
@@ -49,11 +50,11 @@
               </svg>
             </a>
             <ul class="dropdown-menu">
-              <li><a href="#shop-section" onclick="App.activeCategory='all'; document.querySelectorAll('.category-tab').forEach(t => t.classList.toggle('active', t.getAttribute('data-cat')==='all')); App.renderProducts();">🌸 All Collections</a></li>
-              <li><a href="#shop-section" onclick="App.activeCategory='rakhi'; document.querySelectorAll('.category-tab').forEach(t => t.classList.toggle('active', t.getAttribute('data-cat')==='rakhi')); App.renderProducts();">🧵 Rakhi Collection</a></li>
-              <li><a href="#shop-section" onclick="App.activeCategory='hampers'; document.querySelectorAll('.category-tab').forEach(t => t.classList.toggle('active', t.getAttribute('data-cat')==='hampers')); App.renderProducts();">🎁 Luxury Hampers</a></li>
-              <li><a href="#shop-section" onclick="App.activeCategory='diwali'; document.querySelectorAll('.category-tab').forEach(t => t.classList.toggle('active', t.getAttribute('data-cat')==='diwali')); App.renderProducts();">🪔 Diwali Diyas & Decor</a></li>
-              <li><a href="#shop-section" onclick="App.activeCategory='ganesh'; document.querySelectorAll('.category-tab').forEach(t => t.classList.toggle('active', t.getAttribute('data-cat')==='ganesh')); App.renderProducts();">🌱 Ganesh Sthapna (Eco Murti)</a></li>
+              <li><a href="products.html?category=all">🌸 All Collections</a></li>
+              <li><a href="products.html?category=rakhi">🧵 Rakhi Collection</a></li>
+              <li><a href="products.html?category=hampers">🎁 Luxury Hampers</a></li>
+              <li><a href="products.html?category=diwali">🪔 Diwali Diyas & Decor</a></li>
+              <li><a href="products.html?category=ganesh">🌱 Ganesh Sthapna (Eco Murti)</a></li>
             </ul>
           </li>
           <li><a href="#contact-section">Contact Us</a></li>
@@ -271,6 +272,21 @@
       <div class="products-grid" id="productsGrid">
         <!-- Cards rendered here via JavaScript -->
       </div>
+
+      <!-- Explore Complete Collection Callout -->
+      <div class="view-all-products-card" style="margin-top: 3.5rem; text-align: center; padding: 2.5rem 1.5rem; background: linear-gradient(135deg, rgba(254, 250, 246, 0.95), rgba(247, 225, 229, 0.45)); border-radius: var(--radius-md); border: var(--border-delicate); box-shadow: var(--shadow-sm);">
+        <span class="product-category-tag" style="margin-bottom: 0.6rem; display: inline-block;">✨ Complete Boutique Catalog</span>
+        <h3 style="font-size: 1.5rem; color: var(--color-primary); font-family: var(--font-display); margin-bottom: 0.5rem;">
+          Looking for our full handcrafted selection?
+        </h3>
+        <p style="color: var(--color-text-muted); font-size: 0.95rem; max-width: 560px; margin: 0 auto 1.5rem; line-height: 1.6;">
+          Explore all 20+ artisan creations including all Rakhi variations, luxury gift hampers, hand-painted Diwali diyas, and eco-friendly Ganesh idols with advanced sorting and search.
+        </p>
+        <a href="products.html" class="btn btn-primary" style="padding: 0.85rem 2.5rem; font-size: 1rem; border-radius: var(--radius-full); display: inline-flex; align-items: center; gap: 0.6rem; box-shadow: var(--shadow-md);">
+          <span>Browse All Products (20+)</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </a>
+      </div>
     </div>
   </section>
 
@@ -331,6 +347,7 @@
       <div class="video-container-card">
         <div class="video-responsive-frame">
           <iframe 
+            id="youtubeShowcaseFrame"
             src="https://www.youtube.com/embed/ScMzIvxBSi4?rel=0&modestbranding=1" 
             title="The Veda Luxury Crafting & Festive Hampers Showcase" 
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
@@ -345,7 +362,7 @@
               <div style="font-size: 0.82rem; color: var(--color-text-muted);">Watch our unboxing, eco-clay idol making, and festive packaging</div>
             </div>
           </div>
-          <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 0.85rem; padding: 0.5rem 1.1rem;">
+          <a href="https://www.youtube.com/watch?v=ScMzIvxBSi4" target="_blank" rel="noopener noreferrer" class="btn btn-outline" id="youtubeWatchLink" style="font-size: 0.85rem; padding: 0.5rem 1.1rem;">
             Watch On YouTube ↗
           </a>
         </div>
