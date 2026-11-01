@@ -14,6 +14,11 @@ const Admin = {
   init() {
     this.checkAuth();
     this.bindEvents();
+    window.addEventListener('veda_products_synced', () => {
+      if (sessionStorage.getItem('veda_admin_authed') === 'true') {
+        this.loadDashboardData();
+      }
+    });
   },
 
   checkAuth() {
@@ -528,11 +533,16 @@ const Admin = {
     }
   },
 
-  restoreDefaults() {
-    const confirmed = confirm("Are you sure you want to reset the store catalog and configuration to the default flyer items?");
+  clearAllProducts() {
+    const products = StoreManager.getProducts();
+    if (products.length === 0) {
+      this.showToast("Catalog is already empty.", "info");
+      return;
+    }
+    const confirmed = confirm(`Are you sure you want to delete ALL (${products.length}) products from your catalog? This action cannot be undone.`);
     if (confirmed) {
-      StoreManager.resetToDefaults();
-      this.showToast("Catalog restored to default flyer items!", "success");
+      StoreManager.clearAllProducts();
+      this.showToast("All products removed from catalog!", "success");
       this.loadDashboardData();
     }
   },
@@ -613,10 +623,10 @@ const Admin = {
       settingsForm.addEventListener('submit', (e) => this.saveSettings(e));
     }
 
-    // Reset Defaults Button
-    const resetBtn = document.getElementById('restoreDefaultsBtn');
-    if (resetBtn) {
-      resetBtn.addEventListener('click', () => this.restoreDefaults());
+    // Clear Catalog Button
+    const clearBtn = document.getElementById('clearAllProductsBtn') || document.getElementById('restoreDefaultsBtn');
+    if (clearBtn) {
+      clearBtn.addEventListener('click', () => this.clearAllProducts());
     }
 
     // Table Filter Search

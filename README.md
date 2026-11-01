@@ -30,8 +30,7 @@ A boutique e-commerce web platform built with pure HTML, CSS, and modern JavaScr
    - **Upload & Add Products**: Name, Category, Price, MRP, Stock Quantity, Occasion, Tag/Badge, Eco-Friendly toggle, and Description.
    - **Image Support**: Upload an image directly from phone/laptop (auto-converted to Base64) or provide an image URL/asset path.
    - **Manage Inventory**: Edit prices, update stock levels, or delete items.
-   - **WhatsApp Phone Settings**: Live update the recipient WhatsApp number where all orders and inquiries are sent.
-   - **Restore Defaults**: One-click restore to original flyer catalog.
+   - **Clear Catalog**: One-click clear all products from the store catalog.
 
 5. **Crafting Showcase & Social Integration**:
    - Responsive YouTube video showcase embedding the artisan crafting process.

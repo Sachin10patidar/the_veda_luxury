@@ -43,6 +43,10 @@ const App = {
     if (window.Cart) {
       window.Cart.init();
     }
+
+    window.addEventListener('veda_products_synced', () => {
+      this.renderProducts();
+    });
   },
 
   updateBrandDetails() {
@@ -169,12 +173,16 @@ const App = {
     }
 
     if (totalMatching === 0) {
+      const allProducts = StoreManager.getProducts();
+      const isStoreEmpty = allProducts.length === 0;
       grid.innerHTML = `
         <div class="empty-products-view">
           <div class="empty-icon">🌸</div>
-          <h3>No products match your search</h3>
-          <p>Try searching for Rakhis, Luxury Hampers, Diwali Diyas, or Eco Ganesha Murti.</p>
-          <button class="btn btn-outline" onclick="App.resetFilters()">View All Collections</button>
+          <h3>${isStoreEmpty ? 'Catalog In Preparation' : 'No products match your search'}</h3>
+          <p>${isStoreEmpty ? 'New handcrafted festive collections will be listed soon. Inquire via WhatsApp for custom orders!' : 'Try searching for Rakhis, Luxury Hampers, Diwali Diyas, or Eco Ganesha Murti.'}</p>
+          ${isStoreEmpty 
+            ? `<a href="https://wa.me/${(StoreManager.getConfig().whatsappNumber || '').replace(/[^0-9]/g, '')}" class="btn btn-primary" target="_blank" style="margin-top: 1rem;">Contact on WhatsApp</a>`
+            : `<button class="btn btn-outline" onclick="App.resetFilters()">View All Collections</button>`}
         </div>
       `;
       return;
