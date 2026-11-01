@@ -19,6 +19,15 @@ const Admin = {
         this.loadDashboardData();
       }
     });
+    window.addEventListener('veda_config_synced', () => {
+      if (sessionStorage.getItem('veda_admin_authed') === 'true') {
+        const active = document.activeElement;
+        if (!active || !active.closest('#adminSettingsForm')) {
+          this.loadSettingsForm();
+          this.loadStats();
+        }
+      }
+    });
   },
 
   checkAuth() {
@@ -91,7 +100,7 @@ const Admin = {
     const inputCloudPreset = document.getElementById('settingCloudinaryPreset');
 
     if (inputName) inputName.value = config.contactPerson || "Viraj Patidar";
-    if (inputPhone) inputPhone.value = config.whatsappNumber || "+919876543210";
+    if (inputPhone) inputPhone.value = config.whatsappNumber || "+918319092202";
     if (inputInsta) inputInsta.value = config.instagramHandle || "thevedaluxury";
     if (inputYoutube) inputYoutube.value = config.youtubeVideoId || "ScMzIvxBSi4";
     if (inputCloudName) inputCloudName.value = config.cloudinaryCloudName || "";
@@ -104,7 +113,7 @@ const Admin = {
     const config = StoreManager.getConfig();
 
     config.contactPerson = document.getElementById('settingContactPerson').value.trim() || "Viraj Patidar";
-    config.whatsappNumber = document.getElementById('settingWhatsappNumber').value.trim() || "+919876543210";
+    config.whatsappNumber = document.getElementById('settingWhatsappNumber').value.trim() || "+918319092202";
     let rawInsta = document.getElementById('settingInstagramHandle').value.trim() || "thevedaluxury";
     rawInsta = rawInsta.replace(/^@/, '');
     if (rawInsta.includes('instagram.com/')) {

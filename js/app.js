@@ -47,6 +47,10 @@ const App = {
     window.addEventListener('veda_products_synced', () => {
       this.renderProducts();
     });
+
+    window.addEventListener('veda_config_synced', () => {
+      this.updateBrandDetails();
+    });
   },
 
   updateBrandDetails() {

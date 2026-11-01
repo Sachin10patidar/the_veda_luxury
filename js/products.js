@@ -14,7 +14,7 @@ const DEFAULT_CONFIG = {
   storeName: "The Veda Luxury",
   tagline: "Thoughtful Gifts, Beautiful Memories",
   contactPerson: "Viraj Patidar",
-  whatsappNumber: "+919876543210", // Users can update this anytime in Admin panel
+  whatsappNumber: "+918319092202", // Users can update this anytime in Admin panel
   instagramHandle: "thevedaluxury",
   instagramUrl: "https://instagram.com/thevedaluxury",
   youtubeUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Embeddable video URL
@@ -44,26 +44,46 @@ const StoreManager = {
   // Sync with Backend API
   async syncWithServer() {
     try {
-      const prodRes = await fetch('/api/products');
-      if (prodRes.ok) {
-        const serverProducts = await prodRes.json();
-        if (Array.isArray(serverProducts)) {
-          localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(serverProducts));
-          window.dispatchEvent(new CustomEvent('veda_products_synced', { detail: serverProducts }));
-        }
+      let serverProducts = null;
+      try {
+        const prodRes = await fetch('/api/products');
+        if (prodRes.ok) serverProducts = await prodRes.json();
+      } catch (e) {}
+
+      // Fallback to static data/products.json if /api/products returns error or 404
+      if (!Array.isArray(serverProducts)) {
+        try {
+          const fileRes = await fetch('data/products.json?v=' + Date.now());
+          if (fileRes.ok) serverProducts = await fileRes.json();
+        } catch (e) {}
+      }
+
+      if (Array.isArray(serverProducts)) {
+        localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(serverProducts));
+        window.dispatchEvent(new CustomEvent('veda_products_synced', { detail: serverProducts }));
       }
     } catch (e) {
       // Backend not running, use local storage
     }
 
     try {
-      const confRes = await fetch('/api/config');
-      if (confRes.ok) {
-        const serverConfig = await confRes.json();
-        if (serverConfig && serverConfig.storeName) {
-          localStorage.setItem(STORAGE_KEYS.CONFIG, JSON.stringify(serverConfig));
-          window.dispatchEvent(new CustomEvent('veda_config_synced', { detail: serverConfig }));
-        }
+      let serverConfig = null;
+      try {
+        const confRes = await fetch('/api/config');
+        if (confRes.ok) serverConfig = await confRes.json();
+      } catch (e) {}
+
+      // Fallback to static data/config.json if /api/config is not reachable (e.g. static / Live Server)
+      if (!serverConfig || !serverConfig.whatsappNumber) {
+        try {
+          const fileRes = await fetch('data/config.json?v=' + Date.now());
+          if (fileRes.ok) serverConfig = await fileRes.json();
+        } catch (e) {}
+      }
+
+      if (serverConfig && (serverConfig.whatsappNumber || serverConfig.storeName)) {
+        localStorage.setItem(STORAGE_KEYS.CONFIG, JSON.stringify(serverConfig));
+        window.dispatchEvent(new CustomEvent('veda_config_synced', { detail: serverConfig }));
       }
     } catch (e) {
       // Ignore
@@ -91,13 +111,19 @@ const StoreManager = {
 
   saveConfig(newConfig) {
     try {
-      localStorage.setItem(STORAGE_KEYS.CONFIG, JSON.stringify(newConfig));
+      const mergedConfig = { ...this.getConfig(), ...newConfig };
+      localStorage.setItem(STORAGE_KEYS.CONFIG, JSON.stringify(mergedConfig));
       // Sync to backend server
       fetch('/api/config', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newConfig)
-      }).catch(() => {});
+        body: JSON.stringify(mergedConfig)
+      }).then(res => {
+        if (res.ok) console.log('✅ Store configuration saved to data/config.json');
+      }).catch((err) => {
+        console.warn('Backend server not running; config saved to browser localStorage only:', err);
+      });
+      window.dispatchEvent(new CustomEvent('veda_config_synced', { detail: mergedConfig }));
       return true;
     } catch (e) {
       console.error("Error saving config:", e);

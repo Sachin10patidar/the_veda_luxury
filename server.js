@@ -198,8 +198,15 @@ const server = http.createServer(async (req, res) => {
     try {
       const body = await parseBody(req);
       const filePath = path.join(DATA_DIR, 'config.json');
-      fs.writeFileSync(filePath, JSON.stringify(body, null, 2), 'utf8');
-      sendJson(res, 200, { success: true });
+      let existing = {};
+      if (fs.existsSync(filePath)) {
+        try {
+          existing = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+        } catch (e) {}
+      }
+      const merged = { ...existing, ...body };
+      fs.writeFileSync(filePath, JSON.stringify(merged, null, 2), 'utf8');
+      sendJson(res, 200, { success: true, config: merged });
     } catch (err) {
       sendJson(res, 500, { error: 'Failed to save config', details: err.message });
     }
